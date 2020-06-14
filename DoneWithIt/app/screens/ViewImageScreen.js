@@ -1,8 +1,7 @@
 import React from "react";
 import { StyleSheet, ImageBackground, View } from "react-native";
-import { Ionicons, EvilIcons } from "@expo/vector-icons";
 
-import Colors from "../config/Colors";
+import AppIcons from "../components/AppIcons";
 
 function ViewImageScreen(props) {
   return (
@@ -12,13 +11,8 @@ function ViewImageScreen(props) {
       resizeMode="contain"
     >
       <View style={styles.iconsContainer}>
-        <Ionicons name="md-close" color={Colors.light} size={30} />
-        <EvilIcons
-          style={styles.deleteIcon}
-          name="trash"
-          color={Colors.light}
-          size={40}
-        />
+        <AppIcons.close />
+        <AppIcons.trash style={styles.deleteIcon} />
       </View>
     </ImageBackground>
   );

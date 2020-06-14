@@ -1,17 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import Colors from "../config/Colors";
 import AppText from "./AppText";
 
-function Card({ title, subTitle, image, onPress }) {
+function Card({ title, subTitle, image }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <View style={styles.container}>
       <Image style={styles.image} source={image} />
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{title}</AppText>
         <AppText style={styles.subTitle}>{subTitle}</AppText>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 

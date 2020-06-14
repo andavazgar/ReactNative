@@ -2,11 +2,14 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import ViewImageScreen from "./app/screens/ViewImageScreen";
+import AccountScreen from "./app/screens/AccountScreen";
+import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 
 export default function App() {
   return (
     // <View style={styles.container}></View>
-    <ViewImageScreen />
+    <ListingDetailsScreen />
+    // <AccountScreen />
   );
 }
 
