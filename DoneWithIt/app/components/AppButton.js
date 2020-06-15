@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     padding: 15,
     marginVertical: 10,
-    marginHorizontal: 15,
   },
   text: {
     color: colors.light,

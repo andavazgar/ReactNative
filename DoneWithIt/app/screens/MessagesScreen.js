@@ -3,22 +3,24 @@ import { StyleSheet, FlatList, SafeAreaView } from "react-native";
 import Constants from "expo-constants";
 
 import Screen from "../components/Screen";
-import ListItem from "../components/ListItem";
-import ListItemSeparator from "../components/ListItemSeparator";
-import ListItemDeleteAction from "../components/ListItemDeleteAction";
+import {
+  ListItem,
+  ListItemDeleteAction,
+  ListItemSeparator,
+} from "../components/lists";
 
 const initialMessages = [
   {
     id: 1,
     title: "T1",
     description: "D1",
-    image: require("../assets/mosh.jpg"),
+    image: require("../assets/andavazgar.jpg"),
   },
   {
     id: 2,
     title: "T2",
     description: "D2",
-    image: require("../assets/mosh.jpg"),
+    image: require("../assets/andavazgar.jpg"),
   },
 ];
 
@@ -32,7 +34,7 @@ function MessagesList(props) {
   };
 
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <FlatList
         data={messages}
         keyExtractor={(message) => message.id.toString()}
@@ -56,7 +58,7 @@ function MessagesList(props) {
               id,
               title: `T${id}`,
               description: `D${id}`,
-              image: require("../assets/mosh.jpg"),
+              image: require("../assets/andavazgar.jpg"),
             },
           ]);
           setId(id + 1);
@@ -66,6 +68,10 @@ function MessagesList(props) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+  },
+});
 
 export default MessagesList;

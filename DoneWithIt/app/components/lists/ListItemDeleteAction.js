@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import colors from "../config/colors";
-import AppIcons from "./AppIcons";
+
+import colors from "../../config/colors";
+import AppIcons from "../AppIcons";
 
 function ListItemDeleteAction({ onPress }) {
   return (

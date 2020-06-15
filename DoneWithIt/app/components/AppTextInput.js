@@ -21,7 +21,11 @@ function AppTextInput({
   return (
     <View style={styles.container}>
       {icon}
-      <TextInput style={styles.textInput} {...otherProps} />
+      <TextInput
+        style={styles.textInput}
+        placeholderTextColor={defaultStyles.colors.mediumGray}
+        {...otherProps}
+      />
     </View>
   );
 }
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 15,
-    fontSize: 25,
+    fontSize: 22,
   },
   textInput: {
     ...defaultStyles.text,

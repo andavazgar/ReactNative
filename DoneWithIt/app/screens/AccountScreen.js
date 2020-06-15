@@ -5,8 +5,7 @@ import Screen from "../components/Screen";
 import DecoratedIcon from "../components/DecoratedIcon";
 import AppIcons from "../components/AppIcons";
 import colors from "../config/colors";
-import ListItem from "../components/ListItem";
-import ListItemSeparator from "../components/ListItemSeparator";
+import { ListItem, ListItemSeparator } from "../components/lists";
 
 const menuItems = [
   {
