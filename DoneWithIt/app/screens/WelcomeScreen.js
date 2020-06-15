@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 
 function WelcomeScreen(props) {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     top: 70,
   },
   registerButton: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: colors.secondary,
   },
   tagline: {
     fontSize: 25,

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 import AppIcons from "./AppIcons";
 
 function ListItemDeleteAction({ onPress }) {
@@ -16,7 +16,7 @@ function ListItemDeleteAction({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     width: 70,
-    backgroundColor: Colors.danger,
+    backgroundColor: colors.danger,
     justifyContent: "center",
     alignItems: "center",
   },

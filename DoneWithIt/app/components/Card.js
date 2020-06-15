@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 import AppText from "./AppText";
 
 function Card({ title, subTitle, image }) {
@@ -17,7 +17,7 @@ function Card({ title, subTitle, image }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.light,
+    backgroundColor: colors.light,
     borderRadius: 15,
     marginHorizontal: 20,
     marginVertical: 10,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   subTitle: {
-    color: Colors.secondary,
+    color: colors.secondary,
     fontWeight: "bold",
   },
   title: {

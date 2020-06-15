@@ -4,7 +4,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import Screen from "../components/Screen";
 import DecoratedIcon from "../components/DecoratedIcon";
 import AppIcons from "../components/AppIcons";
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 
@@ -13,16 +13,16 @@ const menuItems = [
     title: "My Listings",
     iconDetails: {
       icon: <AppIcons.list />,
-      backgroundColor: Colors.primary,
-      color: Colors.light,
+      backgroundColor: colors.primary,
+      color: colors.light,
     },
   },
   {
     title: "My Messages",
     iconDetails: {
       icon: <AppIcons.messages />,
-      backgroundColor: Colors.secondary,
-      color: Colors.light,
+      backgroundColor: colors.secondary,
+      color: colors.light,
     },
   },
 ];
@@ -64,7 +64,7 @@ function AccountScreen(props) {
             IconComponent={
               <DecoratedIcon
                 IconComponent={<AppIcons.logout />}
-                backgroundColor={Colors.yellow}
+                backgroundColor={colors.yellow}
               />
             }
           />
@@ -78,12 +78,12 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
     padding: 15,
-    backgroundColor: Colors.light,
+    backgroundColor: colors.light,
   },
   groupedContainer: {
     marginVertical: 20,
     paddingHorizontal: 15,
-    backgroundColor: Colors.light,
+    backgroundColor: colors.light,
   },
   listItem: {
     paddingVertical: 15,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   screen: {
-    backgroundColor: Colors.lightGray,
+    backgroundColor: colors.lightGray,
   },
 });
 

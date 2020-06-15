@@ -1,27 +1,30 @@
 import React from "react";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
 
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 
 export default {
+  chevronDown: (props) => (
+    <Ionicons name="ios-arrow-down" size={30} color={colors.light} {...props} />
+  ),
   close: (props) => (
-    <Ionicons name="md-close" size={30} color={Colors.light} {...props} />
+    <Ionicons name="md-close" size={30} color={colors.light} {...props} />
   ),
   list: (props) => (
-    <Ionicons name="ios-list" size={30} color={Colors.light} {...props} />
+    <Ionicons name="ios-list" size={30} color={colors.light} {...props} />
   ),
   logout: (props) => (
-    <Ionicons name="ios-log-out" size={30} color={Colors.light} {...props} />
+    <Ionicons name="ios-log-out" size={30} color={colors.light} {...props} />
   ),
   messages: (props) => (
     <Ionicons
       name="ios-chatbubbles"
       size={30}
-      color={Colors.light}
+      color={colors.light}
       {...props}
     />
   ),
   trash: (props) => (
-    <EvilIcons name="trash" size={40} color={Colors.light} {...props} />
+    <EvilIcons name="trash" size={40} color={colors.light} {...props} />
   ),
 };

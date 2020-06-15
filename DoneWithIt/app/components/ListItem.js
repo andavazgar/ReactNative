@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import AppText from "./AppText";
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 
 function ListItem({
   image,
@@ -16,7 +16,7 @@ function ListItem({
 }) {
   return (
     <Swipeable renderRightActions={rightActions}>
-      <TouchableHighlight underlayColor={Colors.lightGray} onPress={onPress}>
+      <TouchableHighlight underlayColor={colors.lightGray} onPress={onPress}>
         <View style={[styles.container, style]}>
           {image ? (
             <Image style={styles.image} source={image} />
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
   },
   subTitle: {
-    color: Colors.mediumGray,
+    color: colors.mediumGray,
   },
   title: {
     fontWeight: "500",

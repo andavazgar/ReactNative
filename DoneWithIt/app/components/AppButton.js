@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 
 function AppButton({ style, title, onPress }) {
   return (
@@ -13,7 +13,7 @@ function AppButton({ style, title, onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   text: {
-    color: Colors.light,
+    color: colors.light,
     fontSize: 18,
     textTransform: "uppercase",
     fontWeight: "bold",

@@ -3,7 +3,7 @@ import { StyleSheet, FlatList } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
-import Colors from "../config/Colors";
+import colors from "../config/colors";
 
 const listings = [
   {
@@ -40,7 +40,7 @@ function ListingsScreen(props) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: Colors.lightGray,
+    backgroundColor: colors.lightGray,
   },
 });
 
