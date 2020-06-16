@@ -1,5 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Screen from "../components/Screen";
 import {
@@ -8,6 +9,7 @@ import {
   AppFormPicker,
   SubmitButton,
 } from "../components/forms";
+import CategoryPickerItem from "../components/CategoryPickerItem";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -17,9 +19,96 @@ const validationSchema = Yup.object().shape({
 });
 
 const categories = [
-  { label: "Clothes", value: 1 },
-  { label: "Furniture", value: 2 },
-  { label: "Cameras", value: 3 },
+  {
+    label: "Furniture",
+    value: 1,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="floor-lamp" {...props} />
+      ),
+      backgroundColor: "#fc5c65",
+    },
+  },
+  {
+    label: "Cars",
+    value: 2,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="car" {...props} />
+      ),
+      backgroundColor: "#fd9644",
+    },
+  },
+  {
+    label: "Cameras",
+    value: 3,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="camera" {...props} />
+      ),
+      backgroundColor: "#fed330",
+    },
+  },
+  {
+    label: "Games",
+    value: 4,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="cards" {...props} />
+      ),
+      backgroundColor: "#26de81",
+    },
+  },
+  {
+    label: "Clothing",
+    value: 5,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="shoe-heel" {...props} />
+      ),
+      backgroundColor: "#2bcbba",
+    },
+  },
+  {
+    label: "Sports",
+    value: 6,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="basketball" {...props} />
+      ),
+      backgroundColor: "#45aaf2",
+    },
+  },
+  {
+    label: "Movies & Music",
+    value: 7,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="headphones" {...props} />
+      ),
+      backgroundColor: "#4b7bec",
+    },
+  },
+  {
+    label: "Books",
+    value: 8,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="book-open-variant" {...props} />
+      ),
+      backgroundColor: "#a55eea",
+    },
+  },
+  {
+    label: "Other",
+    value: 9,
+    icon: {
+      IconComponent: (props) => (
+        <MaterialCommunityIcons name="application" {...props} />
+      ),
+      backgroundColor: "#778ca3",
+    },
+  },
 ];
 
 function ListEditScreen(props) {
@@ -41,11 +130,15 @@ function ListEditScreen(props) {
           placeholder="Price"
           keyboardType="numeric"
           maxLength={8}
+          width="30%"
         />
         <AppFormPicker
           name="category"
           placeholder="Category"
           data={categories}
+          numberOfColumns={3}
+          PickerItemComponent={CategoryPickerItem}
+          width="50%"
         />
         <AppFormField
           name="description"

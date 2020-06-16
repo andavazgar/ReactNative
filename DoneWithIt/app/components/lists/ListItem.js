@@ -12,6 +12,7 @@ function ListItem({
   subTitle,
   onPress,
   rightActions,
+  RightIndicatorIconComponent,
   style,
 }) {
   return (
@@ -25,8 +26,23 @@ function ListItem({
           )}
 
           <View style={styles.detailsContainer}>
-            <AppText style={styles.title}>{title}</AppText>
-            {subTitle && <AppText style={styles.subTitle}>{subTitle}</AppText>}
+            <AppText style={styles.title} numberOfLines={1}>
+              {title}
+            </AppText>
+            {subTitle && (
+              <AppText style={styles.subTitle} numberOfLines={2}>
+                {subTitle}
+              </AppText>
+            )}
+          </View>
+
+          <View style={styles.rightIndicator}>
+            {RightIndicatorIconComponent && (
+              <RightIndicatorIconComponent
+                color={colors.mediumGray}
+                size={20}
+              />
+            )}
           </View>
         </View>
       </TouchableHighlight>
@@ -40,6 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   detailsContainer: {
+    flex: 1,
     marginLeft: 10,
     justifyContent: "center",
   },
@@ -47,6 +64,10 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
+  },
+  rightIndicator: {
+    justifyContent: "center",
+    marginHorizontal: 10,
   },
   subTitle: {
     color: colors.mediumGray,

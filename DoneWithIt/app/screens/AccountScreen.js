@@ -11,7 +11,7 @@ const menuItems = [
   {
     title: "My Listings",
     iconDetails: {
-      icon: <AppIcons.list />,
+      icon: AppIcons.list,
       backgroundColor: colors.primary,
       color: colors.light,
     },
@@ -19,7 +19,7 @@ const menuItems = [
   {
     title: "My Messages",
     iconDetails: {
-      icon: <AppIcons.messages />,
+      icon: AppIcons.messages,
       backgroundColor: colors.secondary,
       color: colors.light,
     },
@@ -62,7 +62,7 @@ function AccountScreen(props) {
             title="Logout"
             IconComponent={
               <DecoratedIcon
-                IconComponent={<AppIcons.logout />}
+                IconComponent={AppIcons.logout}
                 backgroundColor={colors.yellow}
               />
             }

@@ -24,7 +24,7 @@ function LoginScreen(props) {
         <AppFormField
           autoCapitalize="none"
           autoCorrect={false}
-          IconComponent={<AppIcons.email />}
+          IconComponent={AppIcons.email}
           keyboardType="email-address"
           name="email"
           placeholder="Email"
@@ -34,7 +34,7 @@ function LoginScreen(props) {
         <AppFormField
           autoCapitalize="none"
           autoCorrect={false}
-          IconComponent={<AppIcons.lock />}
+          IconComponent={AppIcons.lock}
           name="password"
           placeholder="Password"
           secureTextEntry

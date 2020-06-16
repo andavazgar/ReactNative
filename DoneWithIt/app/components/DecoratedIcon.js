@@ -19,9 +19,11 @@ function DecoratedIcon({
     },
   });
 
-  const icon = { ...IconComponent };
-  icon.props = { ...icon.props, size: size * iconScaleFactor, color };
-  return <View style={styles.iconContainer}>{icon}</View>;
+  return (
+    <View style={styles.iconContainer}>
+      <IconComponent size={size * iconScaleFactor} color={color} />
+    </View>
+  );
 }
 
 export default DecoratedIcon;

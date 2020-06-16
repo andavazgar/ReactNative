@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, FlatList, SafeAreaView } from "react-native";
-import Constants from "expo-constants";
 
 import Screen from "../components/Screen";
 import {
@@ -8,6 +7,7 @@ import {
   ListItemDeleteAction,
   ListItemSeparator,
 } from "../components/lists";
+import AppIcons from "../components/AppIcons";
 
 const initialMessages = [
   {
@@ -47,6 +47,7 @@ function MessagesList(props) {
             rightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
+            RightIndicatorIconComponent={AppIcons.chevronRight}
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}

@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import Screen from "../components/Screen";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import * as Yup from "yup";
+
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import AppIcons from "../components/AppIcons";
+import Screen from "../components/Screen";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -21,19 +22,19 @@ function RegisterScreen(props) {
       >
         <AppFormField
           name="name"
-          IconComponent={<AppIcons.person />}
+          IconComponent={AppIcons.person}
           placeholder="Name"
         />
 
         <AppFormField
           name="email"
-          IconComponent={<AppIcons.email />}
+          IconComponent={AppIcons.email}
           placeholder="Email"
         />
 
         <AppFormField
           name="password"
-          IconComponent={<AppIcons.lock />}
+          IconComponent={AppIcons.lock}
           placeholder="Password"
         />
 

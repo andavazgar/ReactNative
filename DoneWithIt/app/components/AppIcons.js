@@ -7,6 +7,14 @@ export default {
   chevronDown: (props) => (
     <Ionicons name="ios-arrow-down" size={30} color={colors.light} {...props} />
   ),
+  chevronRight: (props) => (
+    <Ionicons
+      name="ios-arrow-forward"
+      size={30}
+      color={colors.light}
+      {...props}
+    />
+  ),
   close: (props) => (
     <Ionicons name="md-close" size={30} color={colors.light} {...props} />
   ),
