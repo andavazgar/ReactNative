@@ -7,7 +7,7 @@ import {
   ListItemDeleteAction,
   ListItemSeparator,
 } from "../components/lists";
-import AppIcons from "../components/AppIcons";
+import icons from "../config/icons";
 
 const initialMessages = [
   {
@@ -47,7 +47,7 @@ function MessagesList(props) {
             rightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
-            RightIndicatorIconComponent={AppIcons.chevronRight}
+            RightIndicatorIcon={icons.chevronRight}
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}

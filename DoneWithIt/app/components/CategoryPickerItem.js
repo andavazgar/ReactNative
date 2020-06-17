@@ -13,8 +13,8 @@ function CategoryPickerItem({ item, numberOfColumns, onPress }) {
       onPress={onPress}
     >
       <DecoratedIcon
-        IconComponent={item.icon.IconComponent}
-        backgroundColor={item.icon.backgroundColor}
+        icon={item.iconInfo.icon}
+        backgroundColor={item.iconInfo.backgroundColor}
         size={80}
       />
       <AppText style={styles.text}>{item.label}</AppText>

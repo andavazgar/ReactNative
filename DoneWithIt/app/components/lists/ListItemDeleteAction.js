@@ -2,14 +2,12 @@ import React from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 import colors from "../../config/colors";
-import AppIcons from "../AppIcons";
+import icons from "../../config/icons";
 
 function ListItemDeleteAction({ onPress }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={styles.container}>
-        <AppIcons.trash />
-      </View>
+      <View style={styles.container}>{icons.trash}</View>
     </TouchableWithoutFeedback>
   );
 }

@@ -2,16 +2,17 @@ import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 
 import defaultStyles from "../config/defaultStyles";
+import Wrapper from "./Wrapper";
 
 function AppTextInput({
-  IconComponent,
+  icon,
   iconColor = defaultStyles.colors.mediumGray,
   width = "100%",
   ...otherProps
 }) {
   return (
     <View style={[styles.container, { width }]}>
-      {IconComponent && <IconComponent style={styles.icon} color={iconColor} />}
+      {icon && <Wrapper element={icon} style={styles.icon} color={iconColor} />}
 
       <TextInput
         style={styles.textInput}

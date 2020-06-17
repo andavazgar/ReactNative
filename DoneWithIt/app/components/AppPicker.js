@@ -8,16 +8,17 @@ import {
   FlatList,
 } from "react-native";
 
-import defaultStyles from "../config/defaultStyles";
-import AppText from "./AppText";
-import AppIcons from "./AppIcons";
-import Screen from "./Screen";
 import AppPickerItem from "./AppPickerItem";
+import AppText from "./AppText";
+import defaultStyles from "../config/defaultStyles";
+import icons from "../config/icons";
+import Screen from "./Screen";
+import Wrapper from "./Wrapper";
 
 function AppPicker({
   data,
+  icon,
   iconColor = defaultStyles.colors.mediumGray,
-  IconComponent,
   numberOfColumns = 1,
   onSelectItem,
   placeholder,
@@ -31,8 +32,8 @@ function AppPicker({
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
         <View style={[styles.container, { width }]}>
-          {IconComponent && (
-            <IconComponent style={styles.icon} color={iconColor} />
+          {icon && (
+            <Wrapper element={icon} style={styles.icon} color={iconColor} />
           )}
 
           {selectedItem ? (
@@ -41,7 +42,7 @@ function AppPicker({
             <AppText style={styles.placeholder}>{placeholder}</AppText>
           )}
 
-          <AppIcons.chevronDown color={iconColor} size={20} />
+          <Wrapper element={icons.chevronDown} color={iconColor} size={20} />
         </View>
       </TouchableWithoutFeedback>
 

@@ -22,90 +22,72 @@ const categories = [
   {
     label: "Furniture",
     value: 1,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="floor-lamp" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="floor-lamp" />,
       backgroundColor: "#fc5c65",
     },
   },
   {
     label: "Cars",
     value: 2,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="car" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="car" />,
       backgroundColor: "#fd9644",
     },
   },
   {
     label: "Cameras",
     value: 3,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="camera" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="camera" />,
       backgroundColor: "#fed330",
     },
   },
   {
     label: "Games",
     value: 4,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="cards" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="cards" />,
       backgroundColor: "#26de81",
     },
   },
   {
     label: "Clothing",
     value: 5,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="shoe-heel" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="shoe-heel" />,
       backgroundColor: "#2bcbba",
     },
   },
   {
     label: "Sports",
     value: 6,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="basketball" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="basketball" />,
       backgroundColor: "#45aaf2",
     },
   },
   {
     label: "Movies & Music",
     value: 7,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="headphones" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="headphones" />,
       backgroundColor: "#4b7bec",
     },
   },
   {
     label: "Books",
     value: 8,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="book-open-variant" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="book-open-variant" />,
       backgroundColor: "#a55eea",
     },
   },
   {
     label: "Other",
     value: 9,
-    icon: {
-      IconComponent: (props) => (
-        <MaterialCommunityIcons name="application" {...props} />
-      ),
+    iconInfo: {
+      icon: <MaterialCommunityIcons name="application" />,
       backgroundColor: "#778ca3",
     },
   },

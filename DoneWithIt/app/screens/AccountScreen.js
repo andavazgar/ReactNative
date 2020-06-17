@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 
 import Screen from "../components/Screen";
 import DecoratedIcon from "../components/DecoratedIcon";
-import AppIcons from "../components/AppIcons";
+import icons from "../config/icons";
 import colors from "../config/colors";
 import { ListItem, ListItemSeparator } from "../components/lists";
 
@@ -11,7 +11,7 @@ const menuItems = [
   {
     title: "My Listings",
     iconDetails: {
-      icon: AppIcons.list,
+      icon: icons.list,
       backgroundColor: colors.primary,
       color: colors.light,
     },
@@ -19,7 +19,7 @@ const menuItems = [
   {
     title: "My Messages",
     iconDetails: {
-      icon: AppIcons.messages,
+      icon: icons.messages,
       backgroundColor: colors.secondary,
       color: colors.light,
     },
@@ -45,9 +45,9 @@ function AccountScreen(props) {
               <ListItem
                 style={styles.listItem}
                 title={menuItem.title}
-                IconComponent={
+                icon={
                   <DecoratedIcon
-                    IconComponent={menuItem.iconDetails.icon}
+                    icon={menuItem.iconDetails.icon}
                     backgroundColor={menuItem.iconDetails.backgroundColor}
                     color={menuItem.iconDetails.color}
                   />
@@ -60,9 +60,9 @@ function AccountScreen(props) {
         <View style={[styles.container, { marginTop: 0 }]}>
           <ListItem
             title="Logout"
-            IconComponent={
+            icon={
               <DecoratedIcon
-                IconComponent={AppIcons.logout}
+                icon={icons.logout}
                 backgroundColor={colors.yellow}
               />
             }

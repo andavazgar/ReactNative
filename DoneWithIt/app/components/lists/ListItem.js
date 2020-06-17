@@ -4,26 +4,23 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import AppText from "../AppText";
 import colors from "../../config/colors";
+import Wrapper from "../Wrapper";
 
 function ListItem({
   image,
-  IconComponent,
+  icon,
   title,
   subTitle,
   onPress,
   rightActions,
-  RightIndicatorIconComponent,
+  RightIndicatorIcon,
   style,
 }) {
   return (
     <Swipeable renderRightActions={rightActions}>
       <TouchableHighlight underlayColor={colors.lightGray} onPress={onPress}>
         <View style={[styles.container, style]}>
-          {image ? (
-            <Image style={styles.image} source={image} />
-          ) : (
-            IconComponent
-          )}
+          {image ? <Image style={styles.image} source={image} /> : icon}
 
           <View style={styles.detailsContainer}>
             <AppText style={styles.title} numberOfLines={1}>
@@ -37,8 +34,9 @@ function ListItem({
           </View>
 
           <View style={styles.rightIndicator}>
-            {RightIndicatorIconComponent && (
-              <RightIndicatorIconComponent
+            {RightIndicatorIcon && (
+              <Wrapper
+                element={RightIndicatorIcon}
                 color={colors.mediumGray}
                 size={20}
               />

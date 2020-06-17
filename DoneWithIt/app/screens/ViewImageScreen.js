@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, ImageBackground, View } from "react-native";
 
-import AppIcons from "../components/AppIcons";
+import icons from "../config/icons";
+import Wrapper from "../components/Wrapper";
 
 function ViewImageScreen(props) {
   return (
@@ -11,8 +12,8 @@ function ViewImageScreen(props) {
       resizeMode="contain"
     >
       <View style={styles.iconsContainer}>
-        <AppIcons.close />
-        <AppIcons.trash style={styles.deleteIcon} />
+        {icons.close}
+        <Wrapper element={icons.trash} style={styles.deleteIcon} />
       </View>
     </ImageBackground>
   );

@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import Wrapper from "./Wrapper";
 
 function DecoratedIcon({
-  IconComponent,
+  icon,
   size = 40,
   backgroundColor = "#000",
   color = "#fff",
@@ -21,7 +22,7 @@ function DecoratedIcon({
 
   return (
     <View style={styles.iconContainer}>
-      <IconComponent size={size * iconScaleFactor} color={color} />
+      <Wrapper element={icon} size={size * iconScaleFactor} color={color} />
     </View>
   );
 }
