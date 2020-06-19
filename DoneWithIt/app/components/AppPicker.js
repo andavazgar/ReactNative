@@ -10,7 +10,7 @@ import {
 
 import AppPickerItem from "./AppPickerItem";
 import AppText from "./AppText";
-import defaultStyles from "../config/defaultStyles";
+import defaultStyles, { colors } from "../config/defaultStyles";
 import icons from "../config/icons";
 import Screen from "./Screen";
 import Wrapper from "./Wrapper";
@@ -18,7 +18,7 @@ import Wrapper from "./Wrapper";
 function AppPicker({
   data,
   icon,
-  iconColor = defaultStyles.colors.mediumGray,
+  iconColor = colors.mediumGray,
   numberOfColumns = 1,
   onSelectItem,
   placeholder,
@@ -72,7 +72,7 @@ function AppPicker({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.lightGray,
+    backgroundColor: colors.lightGray,
     borderRadius: 25,
     flexDirection: "row",
     alignItems: "center",
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   placeholder: {
     flex: 1,
     marginRight: 15,
-    color: defaultStyles.colors.mediumGray,
+    color: colors.mediumGray,
   },
   text: {
     flex: 1,

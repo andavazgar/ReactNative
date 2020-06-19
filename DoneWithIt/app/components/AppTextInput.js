@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 
-import defaultStyles from "../config/defaultStyles";
+import defaultStyles, { colors } from "../config/defaultStyles";
 import Wrapper from "./Wrapper";
 
 function AppTextInput({
   icon,
-  iconColor = defaultStyles.colors.mediumGray,
+  iconColor = colors.mediumGray,
   width = "100%",
   ...otherProps
 }) {
@@ -16,7 +16,7 @@ function AppTextInput({
 
       <TextInput
         style={styles.textInput}
-        placeholderTextColor={defaultStyles.colors.mediumGray}
+        placeholderTextColor={colors.mediumGray}
         {...otherProps}
       />
     </View>
@@ -25,7 +25,7 @@ function AppTextInput({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.lightGray,
+    backgroundColor: colors.lightGray,
     borderRadius: 25,
     flexDirection: "row",
     alignItems: "center",

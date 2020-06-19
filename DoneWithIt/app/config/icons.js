@@ -4,6 +4,7 @@ import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import colors from "./colors";
 
 export default {
+  camera: <Ionicons name="ios-camera" size={30} color={colors.light} />,
   chevronDown: (
     <Ionicons name="ios-arrow-down" size={30} color={colors.light} />
   ),

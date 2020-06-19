@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
+import ListEditScreen from "./app/screens/ListEditScreen";
 
 export default function App() {
-  return <View style={styles.container}></View>;
+  return (
+    // <View style={styles.container}></View>
+    <ListEditScreen />
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,17 +1,21 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import Screen from "../components/Screen";
 import {
   AppForm,
   AppFormField,
   AppFormPicker,
+  FormImagePicker,
   SubmitButton,
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
+import Screen from "../components/Screen";
+import useLocation from "../hooks/useLocation";
 
 const validationSchema = Yup.object().shape({
+  images: Yup.array().min(1, "Please select at least one image"),
   title: Yup.string().required().label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
   category: Yup.object().required().nullable().label("Category"),
@@ -94,18 +98,23 @@ const categories = [
 ];
 
 function ListEditScreen(props) {
+  const location = useLocation();
+
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <AppForm
         initialValues={{
+          images: [],
           title: "",
           price: "",
           category: null,
           description: "",
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => console.log(location)}
         validationSchema={validationSchema}
       >
+        <FormImagePicker name="images" />
+
         <AppFormField name="title" placeholder="Title" maxLength={255} />
         <AppFormField
           name="price"
@@ -135,5 +144,11 @@ function ListEditScreen(props) {
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+});
 
 export default ListEditScreen;

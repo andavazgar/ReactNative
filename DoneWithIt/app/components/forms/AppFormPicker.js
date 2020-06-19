@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import AppPicker from "../AppPicker";
 import ErrorMessage from "./ErrorMessage";
 
-function AppFormField({ data, icon, name, placeholder, ...otherProps }) {
+function AppFormPicker({ data, icon, name, placeholder, ...otherProps }) {
   const { errors, setFieldValue, touched, values } = useFormikContext();
 
   return (
@@ -22,4 +22,4 @@ function AppFormField({ data, icon, name, placeholder, ...otherProps }) {
   );
 }
 
-export default AppFormField;
+export default AppFormPicker;
