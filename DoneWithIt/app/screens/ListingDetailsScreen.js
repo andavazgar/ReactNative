@@ -1,16 +1,36 @@
 import React from "react";
-import { StyleSheet, Image, View } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
+
 import AppText from "../components/AppText";
 import colors from "../config/colors";
+import defaultStyles from "../config/defaultStyles";
+import icons from "../config/icons";
+import Screen from "../components/Screen";
+import Wrapper from "../components/Wrapper";
 import { ListItem } from "../components/lists";
 
-function ListingDetailsScreen(props) {
+function ListingDetailsScreen({ navigation, route }) {
+  const listing = route.params;
+
   return (
     <View>
-      <Image style={styles.image} source={require("../assets/jacket.jpg")} />
+      <Screen style={styles.closeIconContainer}>
+        <TouchableWithoutFeedback
+          style={styles.closeIcon}
+          onPress={() => navigation.pop()}
+        >
+          <Wrapper element={icons.close} size={26} color={colors.mediumGray} />
+        </TouchableWithoutFeedback>
+      </Screen>
+      <Image style={styles.image} source={listing.image} />
       <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>Red jacket for sale!</AppText>
-        <AppText style={styles.price}>$100</AppText>
+        <AppText style={styles.title}>{listing.title}</AppText>
+        <AppText style={styles.price}>${listing.price}</AppText>
 
         <ListItem
           style={styles.userInfo}
@@ -24,6 +44,23 @@ function ListingDetailsScreen(props) {
 }
 
 const styles = StyleSheet.create({
+  closeIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: colors.mediumGray.transparency(20),
+  },
+  closeIconContainer: {
+    ...defaultStyles.shadow,
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    zIndex: 100,
+    position: "absolute",
+    top: 5,
+    right: 25,
+  },
   detailsContainer: {
     padding: 20,
   },

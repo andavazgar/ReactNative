@@ -1,19 +1,17 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import ListEditScreen from "./app/screens/ListEditScreen";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import AppNavigator from "./app/navigation/AppNavigator";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import navigationTheme from "./app/config/navigationTheme";
 
 export default function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  setTimeout(() => setLoggedIn(true), 2000);
+
   return (
-    // <View style={styles.container}></View>
-    <ListEditScreen />
+    <NavigationContainer theme={navigationTheme}>
+      {loggedIn ? <AppNavigator /> : <AuthNavigator />}
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -6,6 +6,7 @@ import DecoratedIcon from "../components/DecoratedIcon";
 import icons from "../config/icons";
 import colors from "../config/colors";
 import { ListItem, ListItemSeparator } from "../components/lists";
+import routes from "../navigation/routes";
 
 const menuItems = [
   {
@@ -15,6 +16,7 @@ const menuItems = [
       backgroundColor: colors.primary,
       color: colors.light,
     },
+    targetScreen: "",
   },
   {
     title: "My Messages",
@@ -23,10 +25,11 @@ const menuItems = [
       backgroundColor: colors.secondary,
       color: colors.light,
     },
+    targetScreen: routes.MESSAGES.name,
   },
 ];
 
-function AccountScreen(props) {
+function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <ScrollView>
@@ -52,6 +55,7 @@ function AccountScreen(props) {
                     color={menuItem.iconDetails.color}
                   />
                 }
+                onPress={() => navigation.navigate(menuItem.targetScreen)}
               />
             </View>
           ))}

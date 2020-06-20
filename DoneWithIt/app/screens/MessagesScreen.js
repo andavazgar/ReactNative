@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 
-import Screen from "../components/Screen";
 import {
   ListItem,
   ListItemDeleteAction,
@@ -34,7 +33,7 @@ function MessagesList(props) {
   };
 
   return (
-    <Screen style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         data={messages}
         keyExtractor={(message) => message.id.toString()}
@@ -43,7 +42,6 @@ function MessagesList(props) {
             title={item.title}
             subTitle={item.description}
             image={item.image}
-            onPress={() => console.log("tapped")}
             rightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
@@ -65,12 +63,13 @@ function MessagesList(props) {
           setId(id + 1);
         }}
       />
-    </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 15,
   },
 });

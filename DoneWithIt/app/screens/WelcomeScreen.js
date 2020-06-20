@@ -11,7 +11,7 @@ import {
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       source={require("../assets/background.jpg")}
@@ -26,8 +26,18 @@ function WelcomeScreen(props) {
           />
           <Text style={styles.tagline}>Sell What You Don't Need</Text>
         </View>
-        <AppButton title="Login" />
-        <AppButton style={styles.registerButton} title="Register" />
+        <AppButton title="Login" onPress={() => navigation.navigate("Login")} />
+        <AppButton
+          style={styles.registerButton}
+          title="Register"
+          onPress={() => navigation.navigate("Register")}
+        />
+        {/* TODO: Delete this */}
+        <AppButton
+          style={{ backgroundColor: colors.yellow }}
+          title="Go to app"
+          onPress={() => navigation.navigate("FeedTab")}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
