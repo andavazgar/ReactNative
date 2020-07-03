@@ -27,7 +27,7 @@ function ListingDetailsScreen({ navigation, route }) {
           <Wrapper element={icons.close} size={26} color={colors.mediumGray} />
         </TouchableWithoutFeedback>
       </Screen>
-      <Image style={styles.image} source={listing.image} />
+      <Image style={styles.image} source={{ uri: listing.images[0].url }} />
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{listing.title}</AppText>
         <AppText style={styles.price}>${listing.price}</AppText>
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.mediumGray.transparency(20),
   },
   closeIconContainer: {
     ...defaultStyles.shadow,

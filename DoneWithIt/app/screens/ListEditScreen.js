@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import listingsApi from "../api/listings";
 import {
   AppForm,
   AppFormField,
@@ -13,6 +14,7 @@ import {
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import Screen from "../components/Screen";
 import useLocation from "../hooks/useLocation";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
   images: Yup.array().min(1, "Please select at least one image"),
@@ -98,10 +100,34 @@ const categories = [
 ];
 
 function ListEditScreen(props) {
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+
   const location = useLocation();
+
+  const handleSubmit = async (listing, { resetForm }) => {
+    setProgress(0);
+    setUploadVisible(true);
+    const response = await listingsApi.addListing(
+      { ...listing, location },
+      (progress) => setProgress(progress)
+    );
+
+    if (!response.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listing.");
+    }
+
+    resetForm();
+  };
 
   return (
     <Screen style={styles.container}>
+      <UploadScreen
+        visible={uploadVisible}
+        progress={progress}
+        onFished={() => setUploadVisible(false)}
+      />
       <AppForm
         initialValues={{
           images: [],
@@ -110,7 +136,7 @@ function ListEditScreen(props) {
           category: null,
           description: "",
         }}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />
