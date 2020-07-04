@@ -1,10 +1,6 @@
 import React from "react";
-import {
-  StyleSheet,
-  Image,
-  View,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 
 import AppText from "../components/AppText";
 import colors from "../config/colors";
@@ -27,7 +23,12 @@ function ListingDetailsScreen({ navigation, route }) {
           <Wrapper element={icons.close} size={26} color={colors.mediumGray} />
         </TouchableWithoutFeedback>
       </Screen>
-      <Image style={styles.image} source={{ uri: listing.images[0].url }} />
+      <Image
+        style={styles.image}
+        preview={{ uri: listing.images[0].thumbnailUrl }}
+        uri={listing.images[0].url}
+        tint="light"
+      />
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{listing.title}</AppText>
         <AppText style={styles.price}>${listing.price}</AppText>

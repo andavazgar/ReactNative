@@ -22,7 +22,7 @@ function ListingsScreen({ navigation }) {
       {getListingsApi.error && (
         <>
           <AppText>Couldn't retrieve the listings.</AppText>
-          <AppButton title="Retry" onPress={loadListings} />
+          <AppButton title="Retry" onPress={getListingsApi.request} />
         </>
       )}
       <ActivityIndicator visible={getListingsApi.loading} />
@@ -38,6 +38,7 @@ function ListingsScreen({ navigation }) {
               title={item.title}
               subTitle={`$${item.price}`}
               imageURL={item.images[0].url}
+              thumbnailURL={item.images[0].thumbnailUrl}
             />
           </TouchableOpacity>
         )}
