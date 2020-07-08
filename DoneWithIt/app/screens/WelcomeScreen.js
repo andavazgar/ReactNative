@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  ImageBackground,
-  View,
-  Image,
-  Text,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, ImageBackground, View, Image, Text, SafeAreaView } from "react-native";
 
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
@@ -20,10 +13,7 @@ function WelcomeScreen({ navigation }) {
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/logo-red.png")}
-            style={styles.logo}
-          />
+          <Image source={require("../assets/logo-red.png")} style={styles.logo} />
           <Text style={styles.tagline}>Sell What You Don't Need</Text>
         </View>
         <AppButton title="Login" onPress={() => navigation.navigate("Login")} />
@@ -31,12 +21,6 @@ function WelcomeScreen({ navigation }) {
           style={styles.registerButton}
           title="Register"
           onPress={() => navigation.navigate("Register")}
-        />
-        {/* TODO: Delete this */}
-        <AppButton
-          style={{ backgroundColor: colors.yellow }}
-          title="Go to app"
-          onPress={() => navigation.navigate("FeedTab")}
         />
       </SafeAreaView>
     </ImageBackground>
