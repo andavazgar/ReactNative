@@ -1,13 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image } from "react-native";
 import * as Yup from "yup";
-import JwtDecode from "jwt-decode";
 
 import { AppForm, AppFormField, ErrorMessage, SubmitButton } from "../components/forms";
 import icons from "../config/icons";
 import Screen from "../components/Screen";
 import authApi from "../api/auth";
-import AuthContext from "../auth/context";
+import useAuth from "../auth/useAuth";
+import useApi from "../hooks/useApi";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -15,55 +16,54 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
-  const [loginError, setLoginError] = useState("");
-  const authContext = useContext(AuthContext);
+  const loginApi = useApi(authApi.login);
+  const auth = useAuth();
 
   const handleSubmit = async ({ email, password }) => {
-    const response = await authApi.login(email, password);
+    const response = await loginApi.request(email, password);
 
-    if (!response.ok) {
-      setLoginError(response.data.error);
-      return;
+    if (response.ok) {
+      auth.logIn(response.data);
     }
-
-    setLoginError("");
-    const user = JwtDecode(response.data);
-    authContext.setUser(user);
   };
 
   return (
-    <Screen style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/logo-red.png")} />
+    <>
+      <ActivityIndicator visible={loginApi.loading} />
+      <Screen style={styles.container}>
+        <Image style={styles.logo} source={require("../assets/logo-red.png")} />
 
-      <ErrorMessage error={loginError} isVisible={loginError !== ""} />
-      <AppForm
-        initialValues={{ email: "", password: "" }}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon={icons.email}
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
-        />
+        <AppForm
+          initialValues={{ email: "", password: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <ErrorMessage error={loginApi.data.error} isVisible={loginApi.error} />
 
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon={icons.lock}
-          name="password"
-          placeholder="Password"
-          secureTextEntry
-          textContentType="password"
-        />
+          <AppFormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon={icons.email}
+            keyboardType="email-address"
+            name="email"
+            placeholder="Email"
+            textContentType="emailAddress"
+          />
 
-        <SubmitButton title="Login" />
-      </AppForm>
-    </Screen>
+          <AppFormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon={icons.lock}
+            name="password"
+            placeholder="Password"
+            secureTextEntry
+            textContentType="password"
+          />
+
+          <SubmitButton title="Login" />
+        </AppForm>
+      </Screen>
+    </>
   );
 }
 
@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     alignSelf: "center",
-    marginTop: 50,
-    marginBottom: 20,
+    marginVertical: 30,
   },
 });
 

@@ -18,32 +18,34 @@ function ListingsScreen({ navigation }) {
   }, []);
 
   return (
-    <Screen style={styles.screen}>
-      {getListingsApi.error && (
-        <>
-          <AppText>Couldn't retrieve the listings.</AppText>
-          <AppButton title="Retry" onPress={getListingsApi.request} />
-        </>
-      )}
+    <>
       <ActivityIndicator visible={getListingsApi.loading} />
-      <FlatList
-        data={getListingsApi.data}
-        keyExtractor={(listing) => listing.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate("ListingDetails", item)}
-          >
-            <Card
-              title={item.title}
-              subTitle={`$${item.price}`}
-              imageURL={item.images[0].url}
-              thumbnailURL={item.images[0].thumbnailUrl}
-            />
-          </TouchableOpacity>
+      <Screen style={styles.screen}>
+        {getListingsApi.error && (
+          <>
+            <AppText>Couldn't retrieve the listings.</AppText>
+            <AppButton title="Retry" onPress={getListingsApi.request} />
+          </>
         )}
-      />
-    </Screen>
+        <FlatList
+          data={getListingsApi.data}
+          keyExtractor={(listing) => listing.id.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => navigation.navigate("ListingDetails", item)}
+            >
+              <Card
+                title={item.title}
+                subTitle={`$${item.price}`}
+                imageURL={item.images[0].url}
+                thumbnailURL={item.images[0].thumbnailUrl}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </Screen>
+    </>
   );
 }
 

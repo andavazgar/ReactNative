@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 
 import Screen from "../components/Screen";
@@ -7,8 +7,7 @@ import icons from "../config/icons";
 import colors from "../config/colors";
 import { ListItem, ListItemSeparator } from "../components/lists";
 import routes from "../navigation/routes";
-import auth from "../api/auth";
-import AuthContext from "../auth/context";
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
   {
@@ -32,7 +31,8 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
+
   return (
     <Screen style={styles.screen}>
       <ScrollView>
@@ -68,7 +68,7 @@ function AccountScreen({ navigation }) {
           <ListItem
             title="Logout"
             icon={<DecoratedIcon icon={icons.logout} backgroundColor={colors.yellow} />}
-            onPress={() => setUser(null)}
+            onPress={logOut}
           />
         </View>
       </ScrollView>
