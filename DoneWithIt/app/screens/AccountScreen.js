@@ -32,7 +32,7 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   return (
     <Screen style={styles.screen}>
       <ScrollView>
@@ -68,6 +68,7 @@ function AccountScreen({ navigation }) {
           <ListItem
             title="Logout"
             icon={<DecoratedIcon icon={icons.logout} backgroundColor={colors.yellow} />}
+            onPress={() => setUser(null)}
           />
         </View>
       </ScrollView>
