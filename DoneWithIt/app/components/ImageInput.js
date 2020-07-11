@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, View, Image, Alert } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as ImagePicker from "expo-image-picker";
@@ -6,13 +6,8 @@ import Constants from "expo-constants";
 import colors from "../config/colors";
 import icons from "../config/icons";
 import Wrapper from "../components/Wrapper";
-import defaultStyles from "../config/defaultStyles";
 
 function ImageInput({ imageUri, onChangeImage, style }) {
-  useEffect(() => {
-    requestPermission();
-  }, []);
-
   const requestPermission = async () => {
     if (Constants.platform.ios) {
       const { granted } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -43,18 +38,14 @@ function ImageInput({ imageUri, onChangeImage, style }) {
     if (!imageUri) {
       selectImage();
     } else {
-      Alert.alert(
-        "Delete image",
-        "Are you sure you want to delete this image?",
-        [
-          {
-            text: "Yes",
-            onPress: () => onChangeImage(null),
-            style: "destructive",
-          },
-          { text: "No", style: "cancel" },
-        ]
-      );
+      Alert.alert("Delete image", "Are you sure you want to delete this image?", [
+        {
+          text: "Yes",
+          onPress: () => onChangeImage(null),
+          style: "destructive",
+        },
+        { text: "No", style: "cancel" },
+      ]);
     }
   };
 

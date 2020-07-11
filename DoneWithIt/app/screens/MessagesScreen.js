@@ -1,67 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, FlatList, View } from "react-native";
 
-import {
-  ListItem,
-  ListItemDeleteAction,
-  ListItemSeparator,
-} from "../components/lists";
+import { ListItem, ListItemDeleteAction, ListItemSeparator } from "../components/lists";
 import icons from "../config/icons";
-
-const initialMessages = [
-  {
-    id: 1,
-    title: "T1",
-    description: "D1",
-    image: require("../assets/andavazgar.jpg"),
-  },
-  {
-    id: 2,
-    title: "T2",
-    description: "D2",
-    image: require("../assets/andavazgar.jpg"),
-  },
-];
+import useApi from "../hooks/useApi";
+import messagesApi from "../api/messages";
+import AppText from "../components/AppText";
 
 function MessagesList(props) {
-  const [messages, setMessages] = useState(initialMessages);
+  const [messages, setMessages] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [id, setId] = useState(3);
+  const getMessagesApi = useApi(messagesApi.get);
+  const deleteMessagesApi = useApi(messagesApi.delete);
+
+  useEffect(() => {
+    const response = getMessagesApi.request();
+  }, []);
 
   const handleDelete = (message) => {
-    setMessages(messages.filter((m) => m.id !== message.id));
+    deleteMessagesApi.request(message.id);
   };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={messages}
+        data={!getMessagesApi.error ? getMessagesApi.data : []}
         keyExtractor={(message) => message.id.toString()}
+        ListEmptyComponent={
+          <AppText>
+            {getMessagesApi.error ? "An unexpected error occurred" : "No messages!"}
+          </AppText>
+        }
         renderItem={({ item }) => (
           <ListItem
-            title={item.title}
-            subTitle={item.description}
-            image={item.image}
-            rightActions={() => (
-              <ListItemDeleteAction onPress={() => handleDelete(item)} />
-            )}
+            style={styles.listItem}
+            title={item.fromUser.name}
+            subTitle={item.content}
+            // image={item.image}
+            // rightActions={() => <ListItemDeleteAction onPress={() => handleDelete(item)} />}
             RightIndicatorIcon={icons.chevronRight}
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
-        refreshing={refreshing}
-        onRefresh={() => {
-          setMessages([
-            ...messages,
-            {
-              id,
-              title: `T${id}`,
-              description: `D${id}`,
-              image: require("../assets/andavazgar.jpg"),
-            },
-          ]);
-          setId(id + 1);
-        }}
+        refreshing={getMessagesApi.loading}
+        onRefresh={() => getMessagesApi.request()}
       />
     </View>
   );
@@ -71,6 +54,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
+  },
+  listItem: {
+    paddingVertical: 10,
   },
 });
 
