@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
 import AppText from "../components/AppText";
@@ -9,17 +15,19 @@ import icons from "../config/icons";
 import Screen from "../components/Screen";
 import Wrapper from "../components/Wrapper";
 import { ListItem } from "../components/lists";
+import ContactSellerForm from "../components/ContactSellerForm";
+import listings from "../api/listings";
 
 function ListingDetailsScreen({ navigation, route }) {
   const listing = route.params;
 
   return (
-    <View>
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+    >
       <Screen style={styles.closeIconContainer}>
-        <TouchableWithoutFeedback
-          style={styles.closeIcon}
-          onPress={() => navigation.pop()}
-        >
+        <TouchableWithoutFeedback style={styles.closeIcon} onPress={() => navigation.pop()}>
           <Wrapper element={icons.close} size={26} color={colors.mediumGray} />
         </TouchableWithoutFeedback>
       </Screen>
@@ -39,8 +47,9 @@ function ListingDetailsScreen({ navigation, route }) {
           title="Andrés Vazquez"
           subTitle="5 Listings"
         />
+        <ContactSellerForm listing={listing} />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
