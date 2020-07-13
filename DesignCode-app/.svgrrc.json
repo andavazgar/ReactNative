@@ -1,0 +1,7 @@
+{
+  "expandProps": "end",
+  "ignoreExisting": true,
+  "native": true,
+  "prettier": true,
+  "typescript": true
+}

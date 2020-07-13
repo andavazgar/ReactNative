@@ -1,0 +1,10 @@
+export { default as IconCourses } from "./IconCourses";
+export { default as IconHome } from "./IconHome";
+export { default as IconLight } from "./IconLight";
+export { default as IconLogout } from "./IconLogout";
+export { default as IconMenu } from "./IconMenu";
+export { default as IconNight } from "./IconNight";
+export { default as IconNotifications } from "./IconNotifications";
+export { default as IconPlay } from "./IconPlay";
+export { default as IconRefresh } from "./IconRefresh";
+export { default as IconStar } from "./IconStar";
