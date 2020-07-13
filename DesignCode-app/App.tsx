@@ -1,24 +1,74 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { ScrollView, SafeAreaView } from "react-native";
 import styled from "styled-components/native";
 
 import Card from "./app/components/Card";
+import SmallCard from "./app/components/SmallCard";
 import colors from "./app/config/colors";
+import { Svgs } from "./app/config/icons";
+
+const cards = [
+  {
+    title: "Styled components",
+    image: require("./app/assets/background2.jpg"),
+    logo: require("./app/assets/logo-react.png"),
+    caption: "React Native",
+    subtitle: "5 of 12 sections",
+  },
+  {
+    title: "Design",
+    image: require("./app/assets/background7.jpg"),
+    logo: require("./app/assets/logo-figma.png"),
+    caption: "Figma",
+    subtitle: "1 of 10 sections",
+  },
+];
 
 export default function App() {
   return (
     <>
       <StatusBar style="auto" />
       <Container>
-        <TitleBar>
-          <Avatar source={require("./app/assets/andavazgar.jpg")} />
-          <GreetingContainer>
-            <Greeting>Welcome back,</Greeting>
-            <Name>Andrés</Name>
-          </GreetingContainer>
-        </TitleBar>
-        <Subtitle>Continue learning</Subtitle>
-        <Card />
+        <SafeAreaView style={{ flex: 1 }}>
+          <ScrollView>
+            <TitleBar>
+              <Avatar source={require("./app/assets/andavazgar.jpg")} />
+              <GreetingContainer>
+                <Greeting>Welcome back,</Greeting>
+                <Name>Andrés</Name>
+              </GreetingContainer>
+              <Svgs.IconNotifications
+                color={colors.primary}
+                style={{ position: "absolute", right: 20 }}
+              />
+            </TitleBar>
+
+            <ScrollView
+              style={{ marginTop: 30, paddingBottom: 20 }}
+              contentContainerStyle={{ paddingHorizontal: 12 }}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {cards.map((card, index) => {
+                const { logo: image, caption: text } = card;
+                return <SmallCard item={{ image, text }} key={index} />;
+              })}
+            </ScrollView>
+
+            <Subtitle>Continue learning</Subtitle>
+            <ScrollView
+              style={{ paddingBottom: 30 }}
+              contentContainerStyle={{ paddingRight: 20 }}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {cards.map((card, index) => (
+                <Card item={card} key={index} />
+              ))}
+            </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
       </Container>
     </>
   );
@@ -57,7 +107,7 @@ const Subtitle = styled.Text`
   font-size: 15px;
   font-weight: 600;
   margin-left: 20px;
-  margin-top: 50px;
+  margin-top: 10px;
   text-transform: uppercase;
 `;
 

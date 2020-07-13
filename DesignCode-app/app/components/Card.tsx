@@ -1,21 +1,32 @@
 import React, { FC } from "react";
+import { ImageSourcePropType } from "react-native";
 import styled from "styled-components/native";
 
 import colors from "../config/colors";
 
-export interface CardProps {}
+export interface CardItem {
+  image: ImageSourcePropType;
+  title: string;
+  logo: ImageSourcePropType;
+  caption: string;
+  subtitle: string;
+}
 
-const Card: FC<CardProps> = ({}) => {
+export interface CardProps {
+  item: CardItem;
+}
+
+const Card: FC<CardProps> = ({ item }) => {
   return (
     <Container>
-      <Cover source={require("../assets/background1.jpg")}>
-        <Title>Styled Components</Title>
+      <Cover source={item.image}>
+        <Title>{item.title}</Title>
       </Cover>
       <Content>
-        <Logo source={require("../assets/logo-react.png")} />
+        <Logo source={item.logo} resizeMode="contain" />
         <Wrapper>
-          <Caption>React Native</Caption>
-          <Subtitle>5 of 12 sections</Subtitle>
+          <Caption>{item.caption}</Caption>
+          <Subtitle>{item.subtitle}</Subtitle>
         </Wrapper>
       </Content>
     </Container>
@@ -35,7 +46,6 @@ const Container = styled.View`
   border-radius: 14px;
   margin: 20px 0 0 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
 `;
 
 const Content = styled.View`
@@ -48,6 +58,9 @@ const Content = styled.View`
 const Cover = styled.ImageBackground`
   width: 100%;
   height: 200px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  overflow: hidden;
 `;
 
 const Logo = styled.Image`
