@@ -1,0 +1,55 @@
+{
+  "extends": ["@react-native-community"],
+  "plugins": ["import"],
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "camelcase": "error",
+    "import/extensions": ["error", "never", { "svg": "always" }],
+    "import/no-anonymous-default-export": "error",
+    "import/no-duplicates": "error",
+    "import/no-extraneous-dependencies": "error",
+    "import/no-named-as-default-member": "error",
+    "import/order": ["warn", { "alphabetize": { "order": "asc" }, "newlines-between": "always" }],
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "error",
+    "prefer-destructuring": "error",
+    "prettier/prettier": ["warn", { "printWidth": 100, "quoteProps": "consistent" }],
+    "quotes": ["warn", "double", { "avoidEscape": true }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "error",
+    // "react-native/no-color-literals": "off",
+    "react-native/no-inline-styles": "off",
+    // "react-native/no-raw-text": "off",
+    "react-native/no-unused-styles": "error",
+    "react-native/split-platform-components": "error",
+    "semi": "off",
+    "sort-keys": ["warn", "asc", { "natural": true, "minKeys": 10 }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
+          ".d.ts",
+          ".android.js",
+          ".android.jsx",
+          ".android.ts",
+          ".android.tsx",
+          ".ios.js",
+          ".ios.jsx",
+          ".ios.ts",
+          ".ios.tsx",
+          ".web.js",
+          ".web.jsx",
+          ".web.ts",
+          ".web.tsx"
+        ]
+      }
+    }
+  }
+}
