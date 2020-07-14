@@ -5,47 +5,10 @@ import styled from "styled-components/native";
 
 import Card from "./app/components/Card";
 import CourseCard from "./app/components/CourseCard";
+import Menu from "./app/components/Menu";
 import SmallCard from "./app/components/SmallCard";
 import colors from "./app/config/colors";
 import { Svgs } from "./app/config/icons";
-
-const cards = [
-  {
-    title: "Styled components",
-    image: require("./app/assets/background2.jpg"),
-    logo: require("./app/assets/logo-react.png"),
-    caption: "React Native",
-    subtitle: "5 of 12 sections",
-  },
-  {
-    title: "Design",
-    image: require("./app/assets/background7.jpg"),
-    logo: require("./app/assets/logo-figma.png"),
-    caption: "Figma",
-    subtitle: "1 of 10 sections",
-  },
-];
-
-const courses = [
-  {
-    title: "Prototype in InVision Studio",
-    subtitle: "10 sections",
-    image: require("./app/assets/background13.jpg"),
-    logo: require("./app/assets/logo-studio.png"),
-    author: "Andrés",
-    avatar: require("./app/assets/andavazgar.jpg"),
-    caption: "Design and interactive prototype",
-  },
-  {
-    title: "React for Designers",
-    subtitle: "12 sections",
-    image: require("./app/assets/background11.jpg"),
-    logo: require("./app/assets/logo-react.png"),
-    author: "Andrés",
-    avatar: require("./app/assets/andavazgar.jpg"),
-    caption: "Learn to design and code a React site",
-  },
-];
 
 export default function App() {
   return (
@@ -95,6 +58,8 @@ export default function App() {
             ))}
           </ScrollView>
         </SafeAreaView>
+
+        <Menu />
       </Container>
     </>
   );
@@ -142,3 +107,42 @@ const TitleBar = styled.View`
   margin-top: 50px;
   padding-left: 20px;
 `;
+
+// DATA
+const cards = [
+  {
+    title: "Styled components",
+    image: require("./app/assets/background2.jpg"),
+    logo: require("./app/assets/logo-react.png"),
+    caption: "React Native",
+    subtitle: "5 of 12 sections",
+  },
+  {
+    title: "Design",
+    image: require("./app/assets/background7.jpg"),
+    logo: require("./app/assets/logo-figma.png"),
+    caption: "Figma",
+    subtitle: "1 of 10 sections",
+  },
+];
+
+const courses = [
+  {
+    title: "Prototype in InVision Studio",
+    subtitle: "10 sections",
+    image: require("./app/assets/background13.jpg"),
+    logo: require("./app/assets/logo-studio.png"),
+    author: "Andrés",
+    avatar: require("./app/assets/andavazgar.jpg"),
+    caption: "Design and interactive prototype",
+  },
+  {
+    title: "React for Designers",
+    subtitle: "12 sections",
+    image: require("./app/assets/background11.jpg"),
+    logo: require("./app/assets/logo-react.png"),
+    author: "Andrés",
+    avatar: require("./app/assets/andavazgar.jpg"),
+    caption: "Learn to design and code a React site",
+  },
+];
