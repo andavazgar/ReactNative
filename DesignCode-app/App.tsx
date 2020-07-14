@@ -4,6 +4,7 @@ import { ScrollView, SafeAreaView } from "react-native";
 import styled from "styled-components/native";
 
 import Card from "./app/components/Card";
+import CourseCard from "./app/components/CourseCard";
 import SmallCard from "./app/components/SmallCard";
 import colors from "./app/config/colors";
 import { Svgs } from "./app/config/icons";
@@ -22,6 +23,27 @@ const cards = [
     logo: require("./app/assets/logo-figma.png"),
     caption: "Figma",
     subtitle: "1 of 10 sections",
+  },
+];
+
+const courses = [
+  {
+    title: "Prototype in InVision Studio",
+    subtitle: "10 sections",
+    image: require("./app/assets/background13.jpg"),
+    logo: require("./app/assets/logo-studio.png"),
+    author: "Andrés",
+    avatar: require("./app/assets/andavazgar.jpg"),
+    caption: "Design and interactive prototype",
+  },
+  {
+    title: "React for Designers",
+    subtitle: "12 sections",
+    image: require("./app/assets/background11.jpg"),
+    logo: require("./app/assets/logo-react.png"),
+    author: "Andrés",
+    avatar: require("./app/assets/andavazgar.jpg"),
+    caption: "Learn to design and code a React site",
   },
 ];
 
@@ -67,6 +89,10 @@ export default function App() {
                 <Card item={card} key={index} />
               ))}
             </ScrollView>
+            <Subtitle>Popular Courses</Subtitle>
+            {courses.map((course, index) => (
+              <CourseCard item={course} key={index} />
+            ))}
           </ScrollView>
         </SafeAreaView>
       </Container>
