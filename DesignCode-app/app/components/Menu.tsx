@@ -1,9 +1,12 @@
 import React, { FC, useEffect, useRef } from "react";
 import { Animated, TouchableOpacity, Dimensions } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/native";
 
 import colors from "../config/colors";
 import icons from "../config/icons";
+import { RootState } from "../config/store/configureStore";
+import { closeMenu } from "../config/store/menu";
 
 import MenuItem from "./MenuItem";
 import Icon from "./Wrapper";
@@ -11,31 +14,33 @@ import Icon from "./Wrapper";
 const { height: screenHeight } = Dimensions.get("window");
 
 const Menu: FC = () => {
+  const isMenuVisible = useSelector((state: RootState) => state.isMenuVisible);
+  const dispatch = useDispatch();
   const top = useRef(new Animated.Value(screenHeight)).current;
 
   useEffect(() => {
-    Animated.spring(top, {
-      toValue: 0,
-      useNativeDriver: false,
-    }).start();
-  }, []);
-
-  const toggleMenu = () => {
-    Animated.spring(top, {
-      toValue: screenHeight,
-      useNativeDriver: false,
-    }).start();
-  };
+    if (isMenuVisible) {
+      Animated.spring(top, {
+        toValue: 75,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.spring(top, {
+        toValue: screenHeight,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isMenuVisible]);
 
   return (
-    <AnimatedContainer style={{ top }}>
+    <AnimatedContainer style={{ transform: [{ translateY: top }] }}>
       <Cover source={require("../assets/background2.jpg")}>
         <Title>Andrés</Title>
         <Subtitle>React Native developer</Subtitle>
       </Cover>
       <TouchableOpacity
         style={{ position: "absolute", top: 120, left: "50%", marginLeft: -22, zIndex: 1 }}
-        onPress={toggleMenu}
+        onPress={() => dispatch(closeMenu())}
       >
         <CloseView>
           <Icon element={icons.close} size={44} color={colors.primaryAlt} />
@@ -64,7 +69,8 @@ const Container = styled.View`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: white;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
