@@ -25,8 +25,8 @@ const Card: FC<CardProps> = ({ item }) => {
       <Content>
         <Logo source={item.logo} resizeMode="contain" />
         <Wrapper>
-          <Caption>{item.caption}</Caption>
           <Subtitle>{item.subtitle}</Subtitle>
+          <Caption>{item.caption}</Caption>
         </Wrapper>
       </Content>
     </Container>
@@ -34,9 +34,11 @@ const Card: FC<CardProps> = ({ item }) => {
 };
 
 const Caption = styled.Text`
-  color: ${colors.secondary};
-  font-size: 20px;
+  color: ${colors.mediumGray};
+  font-size: 15px;
   font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 4px;
 `;
 
 const Container = styled.View`
@@ -69,11 +71,9 @@ const Logo = styled.Image`
 `;
 
 const Subtitle = styled.Text`
-  color: ${colors.mediumGray};
-  font-size: 15px;
+  color: ${colors.secondary};
+  font-size: 20px;
   font-weight: 600;
-  text-transform: uppercase;
-  margin-top: 4px;
 `;
 
 const Title = styled.Text`

@@ -1,13 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useRef, useEffect } from "react";
-import {
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-  Animated,
-  Easing,
-  StatusBar,
-} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import React, { useRef, useEffect, useState } from "react";
+import { ScrollView, SafeAreaView, TouchableOpacity, Animated, Easing } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components/native";
 
@@ -18,13 +12,13 @@ import Menu from "../components/Menu";
 import SmallCard from "../components/SmallCard";
 import colors from "../config/colors";
 import { Svgs } from "../config/icons";
-import { HomeNavigatorParamList } from "../navigation/HomeNavigator";
+import { AppNavigatorParamList } from "../navigation/AppNavigator";
 import Routes from "../navigation/Routes";
 import { RootState } from "../store/configureStore";
 import { openMenu } from "../store/menu";
 
 export interface HomeScreenProps {
-  navigation: StackNavigationProp<HomeNavigatorParamList, Routes.HOME_SCREEN>;
+  navigation: StackNavigationProp<AppNavigatorParamList, Routes.HOME_SCREEN>;
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
@@ -33,6 +27,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const isMenuVisible = useSelector((state: RootState) => state.menu.isMenuVisible);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+  const [statusBarColor, setStatusBarColor] = useState<"light" | "dark">();
 
   useEffect(() => {
     if (isMenuVisible) {
@@ -48,8 +43,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           useNativeDriver: true,
         }),
       ]).start();
-
-      StatusBar.setBarStyle("light-content", true);
+      setStatusBarColor("light");
     } else {
       Animated.parallel([
         Animated.timing(scale, {
@@ -63,7 +57,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           useNativeDriver: true,
         }),
       ]).start();
-      StatusBar.setBarStyle("dark-content", true);
+      setStatusBarColor("dark");
     }
   });
 
@@ -72,6 +66,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   };
   return (
     <RootContainer>
+      <StatusBar style={statusBarColor} hidden={false} animated />
       <AnimatedContainer style={{ transform: [{ scale }], opacity }}>
         <SafeAreaView style={{ flex: 1 }}>
           <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
@@ -96,7 +91,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               showsHorizontalScrollIndicator={false}
             >
               {cards.map((card, index) => {
-                const { logo: image, caption: text } = card;
+                const { logo: image, subtitle: text } = card;
                 return <SmallCard item={{ image, text }} key={index} />;
               })}
             </ScrollView>
@@ -111,7 +106,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               {cards.map((card, index) => (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => navigation.navigate(Routes.DETAIL_SCREEN)}
+                  onPress={() => navigation.navigate(Routes.DETAIL_SCREEN, { courseInfo: card })}
                 >
                   <Card item={card} />
                 </TouchableOpacity>
@@ -182,15 +177,15 @@ const cards = [
     title: "Styled components",
     image: require("../assets/background2.jpg"),
     logo: require("../assets/logo-react.png"),
-    caption: "React Native",
-    subtitle: "5 of 12 sections",
+    subtitle: "React Native",
+    caption: "5 of 12 sections",
   },
   {
     title: "Design",
     image: require("../assets/background7.jpg"),
     logo: require("../assets/logo-figma.png"),
-    caption: "Figma",
-    subtitle: "1 of 10 sections",
+    subtitle: "Figma",
+    caption: "1 of 10 sections",
   },
 ];
 
