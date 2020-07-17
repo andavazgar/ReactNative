@@ -14,7 +14,7 @@
     "import/order": ["warn", { "alphabetize": { "order": "asc" }, "newlines-between": "always" }],
     "jest/no-identical-title": "error",
     "jest/valid-expect": "error",
-    "prefer-destructuring": "error",
+    // "prefer-destructuring": "error",
     "prettier/prettier": ["warn", { "printWidth": 100, "quoteProps": "consistent" }],
     "quotes": ["warn", "double", { "avoidEscape": true }],
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],

@@ -10,21 +10,23 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components/native";
 
+import Avatar from "../components/Avatar";
 import Card from "../components/Card";
 import CourseCard from "../components/CourseCard";
 import Menu from "../components/Menu";
 import SmallCard from "../components/SmallCard";
 import colors from "../config/colors";
 import { Svgs } from "../config/icons";
-import { RootState } from "../config/store/configureStore";
-import { openMenu } from "../config/store/menu";
+import { RootState } from "../store/configureStore";
+import { openMenu } from "../store/menu";
 
 export interface HomeScreenProps {}
 
 const HomeScreen: FC = () => {
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(1)).current;
-  const isMenuVisible = useSelector((state: RootState) => state.isMenuVisible);
+  const isMenuVisible = useSelector((state: RootState) => state.menu.isMenuVisible);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,11 +72,11 @@ const HomeScreen: FC = () => {
           <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
             <TitleBar>
               <TouchableOpacity onPress={handleMenuVisibility}>
-                <Avatar source={require("../assets/andavazgar.jpg")} />
+                <Avatar />
               </TouchableOpacity>
               <GreetingContainer>
                 <Greeting>Welcome back,</Greeting>
-                <Name>Andrés</Name>
+                <Name>{user.name}</Name>
               </GreetingContainer>
               <Svgs.IconNotifications
                 color={colors.primary}
@@ -116,13 +118,6 @@ const HomeScreen: FC = () => {
     </RootContainer>
   );
 };
-
-const Avatar = styled.Image`
-  width: 44px;
-  height: 44px;
-  background: black;
-  border-radius: 22px;
-`;
 
 const Container = styled.View`
   flex: 1;

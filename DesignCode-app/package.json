@@ -12,6 +12,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "expo": "~38.0.8",
     "expo-status-bar": "^1.0.2",
     "react": "~16.11.0",

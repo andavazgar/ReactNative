@@ -5,8 +5,8 @@ import styled from "styled-components/native";
 
 import colors from "../config/colors";
 import icons from "../config/icons";
-import { RootState } from "../config/store/configureStore";
-import { closeMenu } from "../config/store/menu";
+import { RootState } from "../store/configureStore";
+import { closeMenu } from "../store/menu";
 
 import MenuItem from "./MenuItem";
 import Icon from "./Wrapper";
@@ -14,7 +14,8 @@ import Icon from "./Wrapper";
 const { height: screenHeight } = Dimensions.get("window");
 
 const Menu: FC = () => {
-  const isMenuVisible = useSelector((state: RootState) => state.isMenuVisible);
+  const isMenuVisible = useSelector((state: RootState) => state.menu.isMenuVisible);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const top = useRef(new Animated.Value(screenHeight)).current;
 
@@ -35,8 +36,8 @@ const Menu: FC = () => {
   return (
     <AnimatedContainer style={{ transform: [{ translateY: top }] }}>
       <Cover source={require("../assets/background2.jpg")}>
-        <Title>Andrés</Title>
-        <Subtitle>React Native developer</Subtitle>
+        <Title>{user.name}</Title>
+        <Subtitle>{user.position}</Subtitle>
       </Cover>
       <TouchableOpacity
         style={{ position: "absolute", top: 120, left: "50%", marginLeft: -22, zIndex: 1 }}
