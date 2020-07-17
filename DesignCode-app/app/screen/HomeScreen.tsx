@@ -1,4 +1,5 @@
-import React, { FC, useRef, useEffect } from "react";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useRef, useEffect } from "react";
 import {
   ScrollView,
   SafeAreaView,
@@ -17,12 +18,16 @@ import Menu from "../components/Menu";
 import SmallCard from "../components/SmallCard";
 import colors from "../config/colors";
 import { Svgs } from "../config/icons";
+import { HomeNavigatorParamList } from "../navigation/HomeNavigator";
+import Routes from "../navigation/Routes";
 import { RootState } from "../store/configureStore";
 import { openMenu } from "../store/menu";
 
-export interface HomeScreenProps {}
+export interface HomeScreenProps {
+  navigation: StackNavigationProp<HomeNavigatorParamList, Routes.HOME_SCREEN>;
+}
 
-const HomeScreen: FC = () => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(1)).current;
   const isMenuVisible = useSelector((state: RootState) => state.menu.isMenuVisible);
@@ -104,7 +109,12 @@ const HomeScreen: FC = () => {
               showsHorizontalScrollIndicator={false}
             >
               {cards.map((card, index) => (
-                <Card item={card} key={index} />
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => navigation.navigate(Routes.DETAIL_SCREEN)}
+                >
+                  <Card item={card} />
+                </TouchableOpacity>
               ))}
             </ScrollView>
             <Subtitle>Popular Courses</Subtitle>
@@ -122,7 +132,8 @@ const HomeScreen: FC = () => {
 const Container = styled.View`
   flex: 1;
   background-color: ${colors.background};
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
