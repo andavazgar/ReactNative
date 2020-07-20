@@ -69,8 +69,10 @@ const CloseView = styled.View`
 const Container = styled.View`
   position: absolute;
   width: 100%;
+  max-width: 500px;
   height: 100%;
   border-radius: 10px;
+  align-self: center;
   overflow: hidden;
 `;
 

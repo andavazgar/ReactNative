@@ -18,7 +18,7 @@ export interface CardProps {
 
 const Card: FC<CardProps> = ({ item }) => {
   return (
-    <Container>
+    <Container style={{ elevation: 8 }}>
       <Cover source={item.image}>
         <Title>{item.title}</Title>
       </Cover>
@@ -46,7 +46,7 @@ const Container = styled.View`
   width: 315px;
   height: 280px;
   border-radius: 14px;
-  margin: 20px 0 0 20px;
+  margin: 20px 0 20px 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 `;
 

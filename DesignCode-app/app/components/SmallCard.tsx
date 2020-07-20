@@ -13,7 +13,7 @@ export interface SmallCardProps {
 
 const SmallCard: FC<SmallCardProps> = ({ item }) => {
   return (
-    <Container>
+    <Container style={{ elevation: 2 }}>
       <Image source={item.image} resizeMode="contain" />
       <Text>{item.text}</Text>
     </Container>
@@ -28,7 +28,7 @@ const Container = styled.View`
   padding: 12px 16px;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-  margin: 0 8px;
+  margin: 8px;
 `;
 
 const Image = styled.Image`

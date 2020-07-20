@@ -113,9 +113,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               ))}
             </ScrollView>
             <Subtitle>Popular Courses</Subtitle>
-            {courses.map((course, index) => (
-              <CourseCard item={course} key={index} />
-            ))}
+            <CoursesContainer>
+              {courses.map((course, index) => (
+                <CourseCard item={course} key={index} />
+              ))}
+            </CoursesContainer>
           </ScrollView>
         </SafeAreaView>
       </AnimatedContainer>
@@ -132,6 +134,12 @@ const Container = styled.View`
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
+
+const CoursesContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+`;
 
 const Greeting = styled.Text`
   font-size: 16px;

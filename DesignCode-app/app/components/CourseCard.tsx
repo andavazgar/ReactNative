@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { ImageSourcePropType, ViewProps } from "react-native";
+import React, { FC, useState, useEffect } from "react";
+import { ImageSourcePropType, ViewProps, useWindowDimensions } from "react-native";
 import styled from "styled-components/native";
 
 import colors from "../config/colors";
@@ -19,8 +19,16 @@ export interface CourseCardProps extends ViewProps {
 }
 
 const CourseCard: FC<CourseCardProps> = ({ item, style }) => {
+  const { width: screenWidth } = useWindowDimensions();
+  const [cardWidth, setCardWidth] = useState(0);
+
+  useEffect(() => {
+    const numOfColumns = Math.floor(screenWidth / 300);
+    setCardWidth((screenWidth - 20 - 20 * numOfColumns) / numOfColumns);
+  }, [screenWidth]);
+
   return (
-    <Container style={style}>
+    <Container style={[style, { width: cardWidth }]}>
       <Cover source={item.image}>
         <Logo source={item.logo} resizeMode="contain" />
         <Subtitle>{item.subtitle}</Subtitle>
@@ -38,10 +46,9 @@ const CourseCard: FC<CourseCardProps> = ({ item, style }) => {
 };
 
 const Container = styled.View`
-  width: 90%;
   height: 335px;
   background: white;
-  margin: 10px 20px;
+  margin: 10px;
   border-radius: 14px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 `;
