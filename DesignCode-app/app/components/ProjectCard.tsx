@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
   cover: {
     width: "100%",
     height: 290,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
     overflow: "hidden",
   },
   coverContent: {
