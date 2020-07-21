@@ -5,9 +5,7 @@ import React from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-import Icon from "../components/Wrapper";
-import colors from "../config/colors";
-import icons from "../config/icons";
+import CloseButton from "../components/CloseButton";
 import { AppNavigatorParamList } from "../navigation/AppNavigator";
 import Routes from "../navigation/Routes";
 
@@ -27,9 +25,7 @@ const SectionScreen: React.FC<SectionScreenProps> = ({ route, navigation }) => {
           <Logo source={courseInfo.logo} resizeMode="contain" />
           <Subtitle>{courseInfo.subtitle}</Subtitle>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <CloseView>
-              <Icon element={icons.close} size={36} color={colors.primary} style={{ top: -2 }} />
-            </CloseView>
+            <CloseButton />
           </TouchableOpacity>
         </Wrapper>
         <Title>{courseInfo.title}</Title>
@@ -43,16 +39,6 @@ const Caption = styled.Text`
   color: white;
   font-size: 17px;
   width: 300px;
-`;
-
-const CloseView = styled.View`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  justify-content: center;
-  align-items: center;
 `;
 
 const Container = styled.View`

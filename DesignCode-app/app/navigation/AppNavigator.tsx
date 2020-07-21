@@ -10,6 +10,9 @@ import TabsNavigator from "./TabsNavigator";
 export type AppNavigatorParamList = {
   [Routes.HOME_SCREEN]: undefined;
   [Routes.DETAIL_SCREEN]: { courseInfo: Course };
+  [Routes.COURSES_SCREEN]: undefined;
+  [Routes.PROJECTS_SCREEN]: undefined;
+  [Routes.TABS_NAVIGATOR]: undefined;
 };
 
 const Stack = createStackNavigator();

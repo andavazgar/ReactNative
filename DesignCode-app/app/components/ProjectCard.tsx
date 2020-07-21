@@ -1,7 +1,21 @@
-import React from "react";
-import { StyleSheet, View, Text, ImageSourcePropType, ImageBackground } from "react-native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import React, { useRef, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageSourcePropType,
+  ImageBackground,
+  Animated,
+  useWindowDimensions,
+  StatusBar,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from "react-native";
 
 import colors from "../config/colors";
+
+import CloseButton from "./CloseButton";
 
 interface CardItem {
   title: string;
@@ -15,16 +29,60 @@ export interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo }) => {
+  const navigation = useNavigation();
+  const { width: WIDTH, height: HEIGHT } = useWindowDimensions();
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const cardWidth = useRef(new Animated.Value(315)).current;
+  const cardHeight = useRef(new Animated.Value(460)).current;
+  const titleTop = useRef(new Animated.Value(0)).current;
+
+  const openCard = () => {
+    setIsCardOpen(true);
+    Animated.parallel([
+      Animated.spring(cardWidth, { toValue: WIDTH, useNativeDriver: false }),
+      Animated.spring(cardHeight, { toValue: HEIGHT, useNativeDriver: false }),
+      Animated.spring(titleTop, { toValue: 25, useNativeDriver: false }),
+    ]).start();
+
+    StatusBar.setHidden(true, "fade");
+    navigation.dispatch(CommonActions.setParams({ tabBarVisible: false }));
+  };
+
+  const closeCard = () => {
+    setIsCardOpen(false);
+    Animated.parallel([
+      Animated.spring(cardWidth, { toValue: 315, useNativeDriver: false }),
+      Animated.spring(cardHeight, { toValue: 460, useNativeDriver: false }),
+      Animated.spring(titleTop, { toValue: 0, useNativeDriver: false }),
+    ]).start();
+
+    StatusBar.setHidden(false, "fade");
+    navigation.dispatch(CommonActions.setParams({ tabBarVisible: true }));
+  };
+
   return (
-    <View style={styles.container}>
-      <ImageBackground style={styles.cover} source={cardInfo.image}>
-        <View style={styles.coverContent}>
-          <Text style={styles.title}>{cardInfo.title}</Text>
-          <Text style={styles.author}>By {cardInfo.author}</Text>
+    <Animated.View style={[styles.container, { width: cardWidth, height: cardHeight }]}>
+      <TouchableWithoutFeedback onPress={openCard}>
+        <View>
+          <ImageBackground style={styles.cover} source={cardInfo.image}>
+            <View style={styles.coverContent}>
+              <Animated.View
+                style={[styles.topContainer, { transform: [{ translateY: titleTop }] }]}
+              >
+                <Text style={styles.title}>{cardInfo.title}</Text>
+                {isCardOpen && (
+                  <TouchableOpacity onPress={closeCard}>
+                    <CloseButton />
+                  </TouchableOpacity>
+                )}
+              </Animated.View>
+              <Text style={styles.author}>By {cardInfo.author}</Text>
+            </View>
+          </ImageBackground>
+          <Text style={styles.text}>{cardInfo.text}</Text>
         </View>
-      </ImageBackground>
-      <Text style={styles.text}>{cardInfo.text}</Text>
-    </View>
+      </TouchableWithoutFeedback>
+    </Animated.View>
   );
 };
 
@@ -36,8 +94,6 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   container: {
-    width: 315,
-    height: 460,
     borderRadius: 14,
     backgroundColor: "white",
     shadowOffset: { width: 0, height: 10 },
@@ -66,6 +122,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+  },
+  topContainer: {
+    flex: 1,
+    flexDirection: "row",
   },
 });
 

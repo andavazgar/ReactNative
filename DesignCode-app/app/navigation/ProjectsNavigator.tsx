@@ -7,7 +7,7 @@ import Routes from "./Routes";
 
 const Stack = createStackNavigator();
 const ProjectsNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator headerMode="none">
     <Stack.Screen name={Routes.PROJECTS_SCREEN} component={ProjectsScreen} />
   </Stack.Navigator>
 );
