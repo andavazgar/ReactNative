@@ -12,6 +12,8 @@ import Menu from "../components/Menu";
 import SmallCard from "../components/SmallCard";
 import colors from "../config/colors";
 import { Svgs } from "../config/icons";
+import cards from "../data/cards";
+import courses from "../data/courses";
 import { AppNavigatorParamList } from "../navigation/AppNavigator";
 import Routes from "../navigation/Routes";
 import { RootState } from "../store/configureStore";
@@ -178,42 +180,3 @@ const TitleBar = styled.View`
 `;
 
 export default HomeScreen;
-
-// DATA
-const cards = [
-  {
-    title: "Styled components",
-    image: require("../assets/background2.jpg"),
-    logo: require("../assets/logo-react.png"),
-    subtitle: "React Native",
-    caption: "5 of 12 sections",
-  },
-  {
-    title: "Design",
-    image: require("../assets/background7.jpg"),
-    logo: require("../assets/logo-figma.png"),
-    subtitle: "Figma",
-    caption: "1 of 10 sections",
-  },
-];
-
-const courses = [
-  {
-    title: "Prototype in InVision Studio",
-    subtitle: "10 sections",
-    image: require("../assets/background13.jpg"),
-    logo: require("../assets/logo-studio.png"),
-    author: "Andrés",
-    avatar: require("../assets/andavazgar.jpg"),
-    caption: "Design and interactive prototype",
-  },
-  {
-    title: "React for Designers",
-    subtitle: "12 sections",
-    image: require("../assets/background11.jpg"),
-    logo: require("../assets/logo-react.png"),
-    author: "Andrés",
-    avatar: require("../assets/andavazgar.jpg"),
-    caption: "Learn to design and code a React site",
-  },
-];
