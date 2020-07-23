@@ -12,8 +12,10 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 import colors from "../config/colors";
+import { uiActions } from "../store/ui";
 
 import CloseButton from "./CloseButton";
 
@@ -26,9 +28,11 @@ interface CardItem {
 
 export interface ProjectCardProps {
   cardInfo: CardItem;
+  canOpen?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo, canOpen }) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { width: WIDTH, height: HEIGHT } = useWindowDimensions();
   const [isCardOpen, setIsCardOpen] = useState(false);
@@ -37,6 +41,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo }) => {
   const titleTop = useRef(new Animated.Value(0)).current;
 
   const openCard = () => {
+    if (!canOpen) {
+      return;
+    }
+
     setIsCardOpen(true);
     Animated.parallel([
       Animated.spring(cardWidth, { toValue: WIDTH, useNativeDriver: false }),
@@ -46,6 +54,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo }) => {
 
     StatusBar.setHidden(true, "fade");
     navigation.dispatch(CommonActions.setParams({ tabBarVisible: false }));
+    dispatch(uiActions.openProjectCard());
   };
 
   const closeCard = () => {
@@ -58,6 +67,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo }) => {
 
     StatusBar.setHidden(false, "fade");
     navigation.dispatch(CommonActions.setParams({ tabBarVisible: true }));
+    dispatch(uiActions.closeProjectCard());
   };
 
   return (

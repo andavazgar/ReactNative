@@ -6,7 +6,7 @@ import styled from "styled-components/native";
 import colors from "../config/colors";
 import icons from "../config/icons";
 import { RootState } from "../store/configureStore";
-import { closeMenu } from "../store/menu";
+import { uiActions } from "../store/ui";
 
 import MenuItem from "./MenuItem";
 import Icon from "./Wrapper";
@@ -41,7 +41,7 @@ const Menu: FC = () => {
       </Cover>
       <TouchableOpacity
         style={{ position: "absolute", top: 120, left: "50%", marginLeft: -22, zIndex: 1 }}
-        onPress={() => dispatch(closeMenu())}
+        onPress={() => dispatch(uiActions.closeMenu())}
       >
         <CloseView>
           <Icon element={icons.close} size={44} color={colors.primaryAlt} />

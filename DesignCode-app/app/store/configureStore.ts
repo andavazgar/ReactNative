@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 
-import menuReducer from "./menu";
+import uiReducer from "./ui";
 import userReducer from "./user";
 
-const rootReducer = combineReducers({ menu: menuReducer, user: userReducer });
+const rootReducer = combineReducers({ ui: uiReducer, user: userReducer });
 const getStore = () => configureStore({ reducer: rootReducer });
 
 export type RootState = ReturnType<typeof rootReducer>;

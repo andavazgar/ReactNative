@@ -17,7 +17,7 @@ import courses from "../data/courses";
 import { AppNavigatorParamList } from "../navigation/AppNavigator";
 import Routes from "../navigation/Routes";
 import { RootState } from "../store/configureStore";
-import { openMenu } from "../store/menu";
+import { uiActions } from "../store/ui";
 
 export interface HomeScreenProps {
   navigation: StackNavigationProp<AppNavigatorParamList, Routes.HOME_SCREEN>;
@@ -26,7 +26,7 @@ export interface HomeScreenProps {
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(1)).current;
-  const isMenuVisible = useSelector((state: RootState) => state.menu.isMenuVisible);
+  const isMenuVisible = useSelector((state: RootState) => state.ui.isMenuVisible);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [statusBarColor, setStatusBarColor] = useState<"light" | "dark">();
@@ -64,7 +64,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   });
 
   const handleMenuVisibility = () => {
-    dispatch(openMenu());
+    dispatch(uiActions.openMenu());
   };
   return (
     <RootContainer>

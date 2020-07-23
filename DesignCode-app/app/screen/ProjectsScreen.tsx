@@ -1,15 +1,19 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, View, Animated, PanResponder } from "react-native";
+import { useSelector } from "react-redux";
 
 import ProjectCard from "../components/ProjectCard";
 import colors from "../config/colors";
 import projects from "../data/projects";
+import { RootState } from "../store/configureStore";
 
 export interface ProjectsScreenProps {}
 
 const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
   const [projectsCards, setProjectsCards] = useState(projects);
   const currentIndex = useRef(0);
+  const isProjectCardOpen = useSelector((state: RootState) => state.ui.isProjectCardOpen);
+  const isProjectCardOpenRef = useRef(isProjectCardOpen);
   const scale = useRef(new Animated.Value(0.9)).current;
   const translateY = useRef(new Animated.Value(44)).current;
   const thirdScale = useRef(new Animated.Value(0.8)).current;
@@ -17,7 +21,17 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
   const pan = useRef(new Animated.ValueXY()).current;
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        if (gestureState.dx === 0 && gestureState.dy === 0) {
+          return false;
+        }
+
+        if (isProjectCardOpenRef.current) {
+          return false;
+        }
+
+        return true;
+      },
       onPanResponderGrant: () => {
         Animated.spring(scale, { toValue: 1, useNativeDriver: false }).start();
         Animated.spring(translateY, { toValue: 0, useNativeDriver: false }).start();
@@ -69,6 +83,8 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
     })
   ).current;
 
+  isProjectCardOpenRef.current = isProjectCardOpen;
+
   return (
     <View style={styles.container}>
       {projectsCards.map((project, index) => (
@@ -88,7 +104,7 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
           ]}
           {...panResponder.panHandlers}
         >
-          <ProjectCard cardInfo={project} />
+          <ProjectCard cardInfo={project} canOpen={index === 0} />
         </Animated.View>
       ))}
     </View>
