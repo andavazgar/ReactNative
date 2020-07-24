@@ -31,13 +31,17 @@ export interface ProjectCardProps {
   canOpen?: boolean;
 }
 
+const CARD_WIDTH = 315;
+const CARD_HEIGHT = 460;
+const TITLE_TOP_MARGIN = 25;
+
 const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo, canOpen }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { width: WIDTH, height: HEIGHT } = useWindowDimensions();
   const [isCardOpen, setIsCardOpen] = useState(false);
-  const cardWidth = useRef(new Animated.Value(315)).current;
-  const cardHeight = useRef(new Animated.Value(460)).current;
+  const cardWidth = useRef(new Animated.Value(CARD_WIDTH)).current;
+  const cardHeight = useRef(new Animated.Value(CARD_HEIGHT)).current;
   const titleTop = useRef(new Animated.Value(0)).current;
 
   const openCard = () => {
@@ -49,7 +53,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo, canOpen }) => {
     Animated.parallel([
       Animated.spring(cardWidth, { toValue: WIDTH, useNativeDriver: false }),
       Animated.spring(cardHeight, { toValue: HEIGHT, useNativeDriver: false }),
-      Animated.spring(titleTop, { toValue: 25, useNativeDriver: false }),
+      Animated.spring(titleTop, { toValue: TITLE_TOP_MARGIN, useNativeDriver: false }),
     ]).start();
 
     StatusBar.setHidden(true, "fade");
@@ -60,8 +64,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo, canOpen }) => {
   const closeCard = () => {
     setIsCardOpen(false);
     Animated.parallel([
-      Animated.spring(cardWidth, { toValue: 315, useNativeDriver: false }),
-      Animated.spring(cardHeight, { toValue: 460, useNativeDriver: false }),
+      Animated.spring(cardWidth, { toValue: CARD_WIDTH, useNativeDriver: false }),
+      Animated.spring(cardHeight, { toValue: CARD_HEIGHT, useNativeDriver: false }),
       Animated.spring(titleTop, { toValue: 0, useNativeDriver: false }),
     ]).start();
 
@@ -89,7 +93,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ cardInfo, canOpen }) => {
               <Text style={styles.author}>By {cardInfo.author}</Text>
             </View>
           </ImageBackground>
-          <Text style={styles.text}>{cardInfo.text}</Text>
+          <Text style={styles.text} numberOfLines={isCardOpen ? 0 : 5}>
+            {cardInfo.text}
+          </Text>
         </View>
       </TouchableWithoutFeedback>
     </Animated.View>

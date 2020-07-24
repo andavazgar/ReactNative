@@ -18,6 +18,7 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
   const translateY = useRef(new Animated.Value(44)).current;
   const thirdScale = useRef(new Animated.Value(0.8)).current;
   const thirdTranslateY = useRef(new Animated.Value(-50)).current;
+  const maskOpacity = useRef(new Animated.Value(0)).current;
   const pan = useRef(new Animated.ValueXY()).current;
   const panResponder = useRef(
     PanResponder.create({
@@ -35,6 +36,7 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
       onPanResponderGrant: () => {
         Animated.spring(scale, { toValue: 1, useNativeDriver: false }).start();
         Animated.spring(translateY, { toValue: 0, useNativeDriver: false }).start();
+        Animated.timing(maskOpacity, { toValue: 1, useNativeDriver: false }).start();
 
         Animated.timing(thirdScale, {
           toValue: 0.9,
@@ -51,6 +53,8 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
         useNativeDriver: false,
       }),
       onPanResponderRelease: (_, gestureState) => {
+        Animated.timing(maskOpacity, { toValue: 0, useNativeDriver: false }).start();
+
         if (gestureState.dy > 200) {
           Animated.timing(pan, {
             toValue: { x: gestureState.dx, y: 1000 },
@@ -87,6 +91,7 @@ const ProjectsScreen: React.FC<ProjectsScreenProps> = ({}) => {
 
   return (
     <View style={styles.container}>
+      <Animated.View style={[styles.mask, { opacity: maskOpacity }]} />
       {projectsCards.map((project, index) => (
         <Animated.View
           key={index}
@@ -117,6 +122,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.background,
+  },
+  mask: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.25)",
+    zIndex: -100,
   },
   projectCard: {
     position: "absolute",
