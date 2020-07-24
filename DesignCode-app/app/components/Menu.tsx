@@ -7,6 +7,7 @@ import colors from "../config/colors";
 import icons from "../config/icons";
 import { RootState } from "../store/configureStore";
 import { uiActions } from "../store/ui";
+import { userActions } from "../store/user";
 
 import MenuItem from "./MenuItem";
 import Icon from "./Wrapper";
@@ -14,7 +15,7 @@ import Icon from "./Wrapper";
 const { height: screenHeight } = Dimensions.get("window");
 
 const Menu: FC = () => {
-  const isMenuVisible = useSelector((state: RootState) => state.menu.isMenuVisible);
+  const isMenuVisible = useSelector((state: RootState) => state.ui.isMenuVisible);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const top = useRef(new Animated.Value(screenHeight)).current;
@@ -33,11 +34,18 @@ const Menu: FC = () => {
     }
   }, [isMenuVisible]);
 
+  const handleMenuPress = (item: typeof items[number]) => {
+    if (item.title === "Log out") {
+      dispatch(userActions.updateUser({}));
+      dispatch(uiActions.closeMenu());
+    }
+  };
+
   return (
     <AnimatedContainer style={{ transform: [{ translateY: top }] }}>
       <Cover source={require("../assets/background2.jpg")}>
-        <Title>{user.name}</Title>
-        <Subtitle>{user.position}</Subtitle>
+        <Title>{user?.name}</Title>
+        <Subtitle>{user?.position}</Subtitle>
       </Cover>
       <TouchableOpacity
         style={{ position: "absolute", top: 120, left: "50%", marginLeft: -22, zIndex: 1 }}
@@ -49,7 +57,9 @@ const Menu: FC = () => {
       </TouchableOpacity>
       <Content>
         {items.map((item, index) => (
-          <MenuItem item={item} key={index} />
+          <TouchableOpacity onPress={() => handleMenuPress(item)} key={index}>
+            <MenuItem item={item} />
+          </TouchableOpacity>
         ))}
       </Content>
     </AnimatedContainer>

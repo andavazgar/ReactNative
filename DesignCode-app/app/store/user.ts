@@ -7,14 +7,14 @@ interface User {
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {} as User,
+  initialState: null as User | null,
   reducers: {
     updateUser: (user, action) => {
-      user = { ...user, ...action.payload };
+      user = Object.keys(action.payload).length > 0 ? { ...user, ...action.payload } : {};
       return user;
     },
   },
 });
 
-export const { updateUser } = userSlice.actions;
+export const userActions = userSlice.actions;
 export default userSlice.reducer;

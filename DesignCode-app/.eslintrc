@@ -26,8 +26,7 @@
     // "react-native/no-raw-text": "off",
     "react-native/no-unused-styles": "error",
     "react-native/split-platform-components": "error",
-    "semi": "off",
-    "sort-keys": ["warn", "asc", { "natural": true, "minKeys": 10 }]
+    "semi": "off"
   },
   "settings": {
     "import/resolver": {

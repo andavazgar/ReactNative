@@ -19,6 +19,8 @@ import Routes from "../navigation/Routes";
 import { RootState } from "../store/configureStore";
 import { uiActions } from "../store/ui";
 
+import LoginScreen from "./LoginScreen";
+
 export interface HomeScreenProps {
   navigation: StackNavigationProp<AppNavigatorParamList, Routes.HOME_SCREEN>;
 }
@@ -78,7 +80,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               </TouchableOpacity>
               <GreetingContainer>
                 <Greeting>Welcome back,</Greeting>
-                <Name>{user.name}</Name>
+                <Name>{user?.name}</Name>
               </GreetingContainer>
               <Svgs.IconNotifications
                 color={colors.primary}
@@ -124,6 +126,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </SafeAreaView>
       </AnimatedContainer>
       <Menu />
+      {(!user || Object.keys(user).length === 0) && <LoginScreen />}
     </RootContainer>
   );
 };

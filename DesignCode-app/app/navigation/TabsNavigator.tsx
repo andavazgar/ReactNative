@@ -26,7 +26,6 @@ const TabsNavigator = () => {
 
   return (
     <Tabs.Navigator
-      initialRouteName={Routes.PROJECTS_SCREEN} // TODO: Delete This!!!
       tabBarOptions={{
         activeTintColor: colors.primary,
         inactiveTintColor: colors.mediumGray,
