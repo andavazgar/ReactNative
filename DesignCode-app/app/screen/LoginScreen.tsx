@@ -12,7 +12,9 @@ import {
   Keyboard,
 } from "react-native";
 
+import ActivityIndicator from "../components/ActivityIndicator";
 import colors from "../config/colors";
+import useApi from "../hooks/useApi";
 
 export interface LoginScreenProps {}
 
@@ -27,8 +29,14 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
     password: { value: "", icon: PASSWORD_ICON },
   });
 
+  // TODO: Remove this when backend API is hooked.
+  const loginApi = useApi(true, () => {
+    // eslint-disable-next-line no-undef
+    return new Promise((resolve) => resolve(new Response("Worked great!")));
+  });
+
   const handleLogin = () => {
-    console.log(formState);
+    loginApi.request();
   };
 
   const handleFocus = (field: keyof typeof formState) => {
@@ -54,56 +62,59 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <BlurView style={styles.container} tint="dark" intensity={100}>
-        <View style={styles.modal}>
-          <Image style={styles.logo} source={require("../assets/logo-dc.png")} />
-          <Text style={styles.title}>Start Learning. Access Pro Content.</Text>
-          <View style={styles.textInputContainer}>
-            <Image
-              style={styles.textInputIcon}
-              source={formState.email.icon}
-              resizeMode="contain"
-            />
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder="Email"
-              keyboardType="email-address"
-              onChangeText={(email) =>
-                setFormState({ ...formState, email: { ...formState.email, value: email } })
-              }
-              onFocus={() => handleFocus("email")}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Image
-              style={styles.textInputIcon}
-              source={formState.password.icon}
-              resizeMode="contain"
-            />
-            <TextInput
-              style={styles.textInput}
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={(password) =>
-                setFormState({
-                  ...formState,
-                  password: { ...formState.password, value: password },
-                })
-              }
-              onFocus={() => handleFocus("password")}
-            />
-          </View>
-          <TouchableOpacity onPress={handleLogin}>
-            <View style={styles.submitButton}>
-              <Text style={styles.submitButtonText}>Login</Text>
+    <>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <BlurView style={styles.container} tint="dark" intensity={100}>
+          <View style={styles.modal}>
+            <Image style={styles.logo} source={require("../assets/logo-dc.png")} />
+            <Text style={styles.title}>Start Learning. Access Pro Content.</Text>
+            <View style={styles.textInputContainer}>
+              <Image
+                style={styles.textInputIcon}
+                source={formState.email.icon}
+                resizeMode="contain"
+              />
+              <TextInput
+                style={styles.textInput}
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Email"
+                keyboardType="email-address"
+                onChangeText={(email) =>
+                  setFormState({ ...formState, email: { ...formState.email, value: email } })
+                }
+                onFocus={() => handleFocus("email")}
+              />
             </View>
-          </TouchableOpacity>
-        </View>
-      </BlurView>
-    </TouchableWithoutFeedback>
+            <View style={styles.textInputContainer}>
+              <Image
+                style={styles.textInputIcon}
+                source={formState.password.icon}
+                resizeMode="contain"
+              />
+              <TextInput
+                style={styles.textInput}
+                placeholder="Password"
+                secureTextEntry
+                onChangeText={(password) =>
+                  setFormState({
+                    ...formState,
+                    password: { ...formState.password, value: password },
+                  })
+                }
+                onFocus={() => handleFocus("password")}
+              />
+            </View>
+            <TouchableOpacity onPress={handleLogin}>
+              <View style={styles.submitButton}>
+                <Text style={styles.submitButtonText}>Login</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BlurView>
+      </TouchableWithoutFeedback>
+      <ActivityIndicator isLoading={loginApi.loading} />
+    </>
   );
 };
 
