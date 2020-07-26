@@ -1,4 +1,5 @@
 import { BlurView } from "expo-blur";
+import Constants from "expo-constants";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -10,11 +11,16 @@ import {
   TouchableWithoutFeedback,
   ImageSourcePropType,
   Keyboard,
+  Modal,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 
 import ActivityIndicator from "../components/ActivityIndicator";
+import CloseButton from "../components/CloseButton";
 import colors from "../config/colors";
 import useApi from "../hooks/useApi";
+import { RootState } from "../store/configureStore";
+import { uiActions } from "../store/ui";
 
 export interface LoginScreenProps {}
 
@@ -28,6 +34,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
     email: { value: "", icon: EMAIL_ICON },
     password: { value: "", icon: PASSWORD_ICON },
   });
+
+  const isLoginVisible = useSelector((state: RootState) => state.ui.isLoginVisible);
+  const dispatch = useDispatch();
 
   // TODO: Remove this when backend API is hooked.
   const loginApi = useApi(true, () => {
@@ -62,9 +71,15 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
   };
 
   return (
-    <>
+    <Modal visible={isLoginVisible} animationType="fade" transparent>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <BlurView style={styles.container} tint="dark" intensity={100}>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => dispatch(uiActions.closeLoginModal())}
+          >
+            <CloseButton />
+          </TouchableOpacity>
           <View style={styles.modal}>
             <Image style={styles.logo} source={require("../assets/logo-dc.png")} />
             <Text style={styles.title}>Start Learning. Access Pro Content.</Text>
@@ -114,11 +129,16 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
         </BlurView>
       </TouchableWithoutFeedback>
       <ActivityIndicator isLoading={loginApi.loading} />
-    </>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  closeButton: {
+    position: "absolute",
+    top: Constants.statusBarHeight + 10,
+    right: 25,
+  },
   container: {
     position: "absolute",
     width: "100%",

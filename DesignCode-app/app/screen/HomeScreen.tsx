@@ -66,7 +66,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   });
 
   const handleMenuVisibility = () => {
-    dispatch(uiActions.openMenu());
+    if (!user || Object.keys(user).length === 0) {
+      dispatch(uiActions.openLoginModal());
+    } else {
+      dispatch(uiActions.openMenu());
+    }
   };
   return (
     <RootContainer>
@@ -126,7 +130,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </SafeAreaView>
       </AnimatedContainer>
       <Menu />
-      {(!user || Object.keys(user).length === 0) && <LoginScreen />}
+      <LoginScreen />
     </RootContainer>
   );
 };

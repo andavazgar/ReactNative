@@ -2,8 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: { isMenuVisible: false, isProjectCardOpen: false },
+  initialState: { isLoginVisible: false, isMenuVisible: false, isProjectCardOpen: false },
   reducers: {
+    closeLoginModal: (ui) => {
+      ui.isLoginVisible = false;
+    },
+    openLoginModal: (ui) => {
+      ui.isLoginVisible = true;
+    },
     closeMenu: (ui) => {
       ui.isMenuVisible = false;
     },
