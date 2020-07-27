@@ -1,29 +1,37 @@
 import { useState } from "react";
 
-const useApi = (isTest = false, apiFunc: (...args: Array<{}>) => Promise<Response>) => {
-  const [data, setData] = useState();
+const useApi = () => {
+  const [data, setData] = useState<{} | Error>();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const request = async (...args: Array<{}>) => {
+  const request = async (apiFunc: () => Promise<{}>) => {
     setLoading(true);
 
-    // TODO: Remove this when backend API is hooked.
-    if (isTest) {
-      setTimeout(() => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await apiFunc();
         setLoading(false);
-      }, 5000);
-      return;
-    }
 
-    const response = await apiFunc(...args);
-    setLoading(false);
+        // eslint-disable-next-line no-undef
+        if (response instanceof Response) {
+          setError(!response.ok);
+          response.json().then((jsonResponse) => {
+            setData(jsonResponse);
+          });
+        } else {
+          setError(false);
+          setData(response);
+        }
 
-    setError(!response.ok);
-    const jsonResponse = await response.json();
-    setData(jsonResponse);
-
-    return response;
+        resolve(response);
+      } catch (err) {
+        setError(true);
+        setLoading(false);
+        setData(err);
+        reject(err);
+      }
+    });
   };
 
   return { data, error, loading, request };

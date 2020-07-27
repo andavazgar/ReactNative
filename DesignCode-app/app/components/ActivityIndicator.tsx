@@ -1,28 +1,22 @@
 import LottieView from "lottie-react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, StyleSheet, Modal } from "react-native";
 
 export interface ActivityIndicatorProps {
+  visible: boolean;
   isLoading: boolean;
+  success: boolean;
+  onFinished: () => void;
 }
 
-const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({ isLoading }) => {
-  const [finished, setFinished] = useState<boolean>();
-
-  useEffect(() => {
-    if (isLoading) {
-      setFinished(false);
-    }
-  }, [isLoading]);
-
-  const handleFinish = () => {
-    setTimeout(() => {
-      setFinished(true);
-    }, 1500);
-  };
-
+const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
+  visible,
+  isLoading,
+  success,
+  onFinished,
+}) => {
   return (
-    <Modal visible={isLoading || finished === false} transparent animationType="fade">
+    <Modal visible={visible} transparent animationType="fade">
       <View style={styles.container}>
         {isLoading ? (
           <LottieView
@@ -31,12 +25,14 @@ const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({ isLoading }) => {
             loop
           />
         ) : (
-          <LottieView
-            source={require("../assets/animations/lottie-checked-done.json")}
-            autoPlay
-            loop={false}
-            onAnimationFinish={handleFinish}
-          />
+          success && (
+            <LottieView
+              source={require("../assets/animations/lottie-checked-done.json")}
+              autoPlay
+              loop={false}
+              onAnimationFinish={onFinished}
+            />
+          )
         )}
       </View>
     </Modal>

@@ -12,40 +12,58 @@ import {
   ImageSourcePropType,
   Keyboard,
   Modal,
+  Alert,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
+import firebase from "../backend/firebase";
 import ActivityIndicator from "../components/ActivityIndicator";
 import CloseButton from "../components/CloseButton";
 import colors from "../config/colors";
 import useApi from "../hooks/useApi";
-import { RootState } from "../store/configureStore";
 import { uiActions } from "../store/ui";
 
-export interface LoginScreenProps {}
+export interface LoginScreenProps {
+  isLoginVisible: boolean;
+}
 
-const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
+const LoginScreen: React.FC<LoginScreenProps> = ({ isLoginVisible }) => {
   const EMAIL_ICON: ImageSourcePropType = require("../assets/icon-email.png");
   const EMAIL_ICON_ACTIVE: ImageSourcePropType = require("../assets/icon-email-active.png");
   const PASSWORD_ICON: ImageSourcePropType = require("../assets/icon-password.png");
   const PASSWORD_ICON_ACTIVE: ImageSourcePropType = require("../assets/icon-password-active.png");
 
-  const [formState, setFormState] = useState({
+  const INITIAL_FORM_STATE = {
     email: { value: "", icon: EMAIL_ICON },
     password: { value: "", icon: PASSWORD_ICON },
-  });
+  };
 
-  const isLoginVisible = useSelector((state: RootState) => state.ui.isLoginVisible);
+  const [formState, setFormState] = useState(INITIAL_FORM_STATE);
+  const [activityVisible, setActivityVisible] = useState(false);
   const dispatch = useDispatch();
+  const loginApi = useApi();
 
-  // TODO: Remove this when backend API is hooked.
-  const loginApi = useApi(true, () => {
-    // eslint-disable-next-line no-undef
-    return new Promise((resolve) => resolve(new Response("Worked great!")));
-  });
+  const closeLoginModal = () => {
+    setTimeout(() => {
+      setFormState(INITIAL_FORM_STATE);
+      dispatch(uiActions.closeLoginModal());
+      setActivityVisible(false);
+    }, 1000);
+  };
 
-  const handleLogin = () => {
-    loginApi.request();
+  const handleLogin = async () => {
+    const {
+      email: { value: email },
+      password: { value: password },
+    } = formState;
+
+    setActivityVisible(true);
+    loginApi
+      .request(() => firebase.auth().signInWithEmailAndPassword(email, password))
+      .catch((error) => {
+        setActivityVisible(false);
+        Alert.alert("Error", error.message);
+      });
   };
 
   const handleFocus = (field: keyof typeof formState) => {
@@ -128,7 +146,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({}) => {
           </View>
         </BlurView>
       </TouchableWithoutFeedback>
-      <ActivityIndicator isLoading={loginApi.loading} />
+      <ActivityIndicator
+        visible={activityVisible}
+        isLoading={loginApi.loading}
+        success={!loginApi.error}
+        onFinished={closeLoginModal}
+      />
     </Modal>
   );
 };

@@ -28,6 +28,7 @@ export interface HomeScreenProps {
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(1)).current;
+  const isLoginVisible = useSelector((state: RootState) => state.ui.isLoginVisible);
   const isMenuVisible = useSelector((state: RootState) => state.ui.isMenuVisible);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       ]).start();
       setStatusBarColor("dark");
     }
-  });
+  }, [isMenuVisible, opacity, scale]);
 
   const handleMenuVisibility = () => {
     if (!user || Object.keys(user).length === 0) {
@@ -130,7 +131,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         </SafeAreaView>
       </AnimatedContainer>
       <Menu />
-      <LoginScreen />
+      <LoginScreen isLoginVisible={isLoginVisible} />
     </RootContainer>
   );
 };
