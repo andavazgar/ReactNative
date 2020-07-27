@@ -18,6 +18,8 @@ import { AppNavigatorParamList } from "../navigation/AppNavigator";
 import Routes from "../navigation/Routes";
 import { RootState } from "../store/configureStore";
 import { uiActions } from "../store/ui";
+import { userActions } from "../store/user";
+import AsyncStorage from "../utils/AsyncStorage";
 
 import LoginScreen from "./LoginScreen";
 
@@ -33,6 +35,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [statusBarColor, setStatusBarColor] = useState<"light" | "dark">();
+
+  useEffect(() => {
+    AsyncStorage.get("user").then((storedUser) => {
+      dispatch(userActions.updateUser(storedUser));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     if (isMenuVisible) {

@@ -33,7 +33,8 @@
     "styled-components": "^5.1.1",
     "expo-blur": "~8.1.2",
     "lottie-react-native": "~2.6.1",
-    "firebase": "7.9.0"
+    "firebase": "7.9.0",
+    "@react-native-community/async-storage": "~1.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

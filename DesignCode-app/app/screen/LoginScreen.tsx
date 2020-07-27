@@ -22,6 +22,8 @@ import CloseButton from "../components/CloseButton";
 import colors from "../config/colors";
 import useApi from "../hooks/useApi";
 import { uiActions } from "../store/ui";
+import { userActions } from "../store/user";
+import AsyncStorage from "../utils/AsyncStorage";
 
 export interface LoginScreenProps {
   isLoginVisible: boolean;
@@ -60,9 +62,25 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ isLoginVisible }) => {
     setActivityVisible(true);
     loginApi
       .request(() => firebase.auth().signInWithEmailAndPassword(email, password))
+      .then(() => {
+        fetchUser();
+      })
       .catch((error) => {
         setActivityVisible(false);
         Alert.alert("Error", error.message);
+      });
+  };
+
+  const fetchUser = () => {
+    fetch("https://uifaces.co/api?limit=1", {
+      headers: new Headers({
+        "X-API-KEY": "eeaafbe81657073cd70ac6e3de1bd6",
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        dispatch(userActions.updateUser(jsonResponse[0]));
+        AsyncStorage.set("user", jsonResponse[0]);
       });
   };
 
